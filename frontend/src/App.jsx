@@ -1,5 +1,5 @@
 import Navbar from "./Components/Navbar";
-import Churn from "./pages/churn";
+import Churn from "./pages/Churn";
 import Inicio from "./pages/mainPage";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
