@@ -1,8 +1,18 @@
-import { createServer } from 'http'
+import 'dotenv/config'
+import express from 'express'
+import connectDB from './config/db.js'
+import clientRoutes from './routes/clientRoute.js'
 
+const app = express()
 const PORT = process.env.PORT || 3001
 
-createServer((_req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' })
-  res.end('')
-}).listen(PORT)
+connectDB()
+
+app.use(express.json())
+app.use('/api/clients', clientRoutes)
+
+app.get('/', (_req, res) => {
+  res.send('')
+})
+
+app.listen(PORT)
