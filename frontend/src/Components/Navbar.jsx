@@ -1,7 +1,15 @@
+import Logo from "../Images/Logo.png";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
 function Navbar() {
     return (
-      <nav>
-        <h1>My Website</h1>
+      <nav className="navbar">
+        <img src={Logo} alt="Logo"/>
+        <div className="navbarButtons">
+          <Link to="/mainPage">Main Page</Link>
+          <Link to="/churn">Churn</Link>
+          <Link to="/solutions">Solutions</Link>
+        </div>
       </nav>
     );
   }
