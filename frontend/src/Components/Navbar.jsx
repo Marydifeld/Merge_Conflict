@@ -1,7 +1,14 @@
+import Logo from "../Images/Logo.png";
+
 function Navbar() {
     return (
-      <nav>
-        <h1>My Website</h1>
+      <nav className="navbar">
+        <img src={Logo} alt="Logo"/>
+        <div className="navbarButtons">
+          <button>Inicio</button>
+          <button>Churn</button>
+          <button>Home</button>
+        </div>
       </nav>
     );
   }
