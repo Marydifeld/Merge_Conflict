@@ -5,6 +5,7 @@
     --gray: #dedbd3;
     --brown: #6e1916;
     --orange: #fe6602;
+    --pinkOrange: #f04228;
 }  
 
 *{
@@ -23,7 +24,7 @@
 }
 .navbar img{
     height: 80px;
-    margin-right: 20px;
+    margin: 0px 20px;
     padding: 10px;
     background-color: transparent;
 }
@@ -33,14 +34,66 @@
     margin-left: auto;
     margin-right: 20px;
     background-color: transparent;
+    align-items: center;
 }
-.navbar button{
+.navbar a{
     margin: 0 10px;
     padding: 10px 20px;
     font-size: 24px;
     background-color:transparent;
     color: var(--white);
-    border: none;
-    cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
+}
+
+.kpi{
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    flex-direction: row;
+    width: 80%;
+}
+
+.kpiContainer{
+    flex-direction: column;
+    display: flex;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    background-color:var(--pink);
+    border: 5px solid var(--pink);
+    border-radius: 10px;
+}
+
+.second{
+    background-color: var(--pinkOrange);
+    border: 5px solid var(--pinkOrange);
+}
+
+.third{
+    background-color: var(--orange);
+    border: 5px solid var(--orange);
+}
+
+.kpiContainer h1{
+    background-color: transparent;
+    text-align: center;
+    font-size: 25px;
+    color: var(--white);
+    margin: 10px 5px;
+}
+
+.kpiContainer h2{
+    text-align: center;
+    background-color: transparent;
+    font-size: 30px;
+    color: var(--white);
+    margin: 10px 5px;
+    font-weight: bold;
+}
+
+.mainPage{
+    text-align: center;
+    font-size: 50px;
+    color: var(--black);
 }
