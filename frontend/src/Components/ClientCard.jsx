@@ -30,7 +30,7 @@ function ClientCard({ client }) {
       </div>
       <div className="client-details">
         <div className="client-header-info">
-          <span className="client-name">{client.cliente_id}</span>
+          <span className="client-name">{client.cliente_id.length > 20 ? client.cliente_id.substring(0, 12) + '...' : client.cliente_id}</span>
           <span className={`client-risk-value ${riskClass}`}>{riskPercent}% Risk</span>
         </div>
         

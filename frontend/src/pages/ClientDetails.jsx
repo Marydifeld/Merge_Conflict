@@ -1,25 +1,191 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { generateClientAnalysis, sendFollowUp, parsePartialJSON } from '../utils/geminiClient'
 import '../churn_styles.css'
 
-const mockClients = [
-  { cliente_id: 'Tienda_MX_9032', churn_score: 0.92, territorio: 'CDMX', subchannel: 'Tortillería', tamano: 'Mediano' },
-  { cliente_id: 'Abarrotes_JAL_8841', churn_score: 0.74, territorio: 'Jalisco', subchannel: 'Mayorista', tamano: 'Grande' },
-  { cliente_id: 'Kiosco_NLE_7720', churn_score: 0.58, territorio: 'Nuevo León', subchannel: 'Kiosco', tamano: 'Mini' },
-  { cliente_id: 'Hogar_CDMX_1109', churn_score: 0.32, territorio: 'CDMX', subchannel: 'Hogares', tamano: 'Mediano' },
-  { cliente_id: 'Tortilla_PUE_6542', churn_score: 0.88, territorio: 'Puebla', subchannel: 'Tortillería', tamano: 'Mediano' },
-  { cliente_id: 'Depot_JAL_5510', churn_score: 0.45, territorio: 'Jalisco', subchannel: 'Mayorista', tamano: 'Grande' },
-  { cliente_id: 'Tienda_NLE_4301', churn_score: 0.12, territorio: 'Nuevo León', subchannel: 'Kiosco', tamano: 'Mini' },
-  { cliente_id: 'Miscelanea_EDO_9981', churn_score: 0.79, territorio: 'Estado de México', subchannel: 'Kiosco', tamano: 'Mini' },
-  { cliente_id: 'Super_EDO_2210', churn_score: 0.61, territorio: 'Estado de México', subchannel: 'Mayorista', tamano: 'Grande' },
-  { cliente_id: 'Tortilla_JAL_0029', churn_score: 0.25, territorio: 'Jalisco', subchannel: 'Tortillería', tamano: 'Mediano' },
-]
+import dashboardData from '../data/dashboard_data.json'
+
+const mockClients = dashboardData.top_50_clientes_riesgo.map(c => ({
+  cliente_id: c.customer_id,
+  churn_score: c.prob_churn,
+  territorio: c.territorio,
+  subchannel: c.subchannel,
+  tamano: c.tamanio,
+  razones: c.razones,
+  propuestas: c.propuestas,
+  nivel_riesgo: c.nivel_riesgo,
+  num_coolers: c.num_coolers,
+  num_doors: c.num_doors
+}))
+
+// Basic Markdown parser for streaming AI analysis
+function renderMarkdown(text) {
+  if (!text) return null
+  
+  // Split by line
+  const lines = text.split('\n')
+  return lines.map((line, index) => {
+    const trimmed = line.trim()
+    // 1. Heading 3
+    if (trimmed.startsWith('### ')) {
+      return <h3 key={index} className="markdown-h3">{parseBold(trimmed.substring(4))}</h3>
+    }
+    // 2. Heading 4
+    if (trimmed.startsWith('#### ')) {
+      return <h4 key={index} className="markdown-h4">{parseBold(trimmed.substring(5))}</h4>
+    }
+    // 3. Blockquote
+    if (trimmed.startsWith('> ')) {
+      return <blockquote key={index} className="markdown-blockquote">{parseBold(trimmed.substring(2))}</blockquote>
+    }
+    // 4. Bullet list item
+    if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
+      return <li key={index} className="markdown-li">{parseBold(trimmed.substring(2))}</li>
+    }
+    // 5. Empty line
+    if (trimmed === '') {
+      return <div key={index} className="markdown-spacer" style={{ height: '8px' }} />
+    }
+    // 6. Normal paragraph
+    return <p key={index} className="markdown-p">{parseBold(line)}</p>
+  })
+}
+
+function parseBold(text) {
+  if (!text) return ""
+  
+  // Parse **bold** and *italics*
+  const regex = /(\*\*.*?\*\*|\*.*?\*)/g
+  const parts = text.split(regex)
+  
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>
+    }
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={i} style={{ fontStyle: 'italic' }}>{part.slice(1, -1)}</em>
+    }
+    return part
+  })
+}
 
 function ClientDetails() {
   const { clientId } = useParams()
   
   // Find client matching parameter
   const client = mockClients.find((c) => c.cliente_id === clientId)
+
+  // IA analysis state
+  const [analysisText, setAnalysisText] = useState('')
+  const [analysisLoading, setAnalysisLoading] = useState(false)
+  const [analysisError, setAnalysisError] = useState(null)
+
+  // Follow-up chat states
+  const [chatInput, setChatInput] = useState('')
+  const [chatHistory, setChatHistory] = useState([])
+  const [chatStreamingText, setChatStreamingText] = useState('')
+  const [chatLoading, setChatLoading] = useState(false)
+  const chatEndRef = useRef(null)
+
+  // Clear analysis and chat state when switching clients
+  useEffect(() => {
+    setAnalysisText('')
+    setChatHistory([])
+    setChatStreamingText('')
+    setAnalysisError(null)
+  }, [clientId])
+
+  const fetchAnalysis = async () => {
+    if (!client || analysisLoading) return
+    setAnalysisLoading(true)
+    setAnalysisError(null)
+    setAnalysisText('')
+
+    // Generate historical trend from real JSON database history if available
+    const historyKey = client.cliente_id.length > 12 ? client.cliente_id.substring(0, 12) + "..." : client.cliente_id
+    const realHistory = dashboardData.historiales_top20_riesgo[historyKey]
+    const historyData = realHistory ? realHistory.map(h => ({
+      mes: h.mes,
+      num_transacciones: h.transacciones,
+      uni_boxes_sold_m: h.cajas,
+      prob_churn: client.churn_score
+    })) : [
+      { mes: '2025-10', num_transacciones: 52, uni_boxes_sold_m: 110, prob_churn: client.churn_score * 0.9 },
+      { mes: '2025-11', num_transacciones: 48, uni_boxes_sold_m: 95, prob_churn: client.churn_score * 0.95 },
+      { mes: '2025-12', num_transacciones: 42, uni_boxes_sold_m: 80, prob_churn: client.churn_score * 0.98 },
+      { mes: '2026-01', num_transacciones: 34, uni_boxes_sold_m: 65, prob_churn: client.churn_score }
+    ]
+
+    try {
+      const stream = await generateClientAnalysis(client, historyData)
+      const reader = stream.getReader()
+      let accumulated = ""
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        accumulated += value
+        setAnalysisText(accumulated)
+      }
+    } catch (err) {
+      console.error('Error running Gemini analysis:', err)
+      setAnalysisError(err.message || 'Error al conectar con la API de Gemini.')
+    } finally {
+      setAnalysisLoading(false)
+    }
+  }
+
+  // Scroll to bottom of chat automatically on updates
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chatHistory, chatStreamingText])
+
+  const handleSendChat = async (e) => {
+    e.preventDefault()
+    if (!chatInput.trim() || chatLoading) return
+
+    const userMessage = chatInput
+    setChatInput('')
+    await runChatQuery(userMessage)
+  }
+
+  // Handle suggestion prompt button click
+  const handleStarterClick = async (starterText) => {
+    if (chatLoading) return
+    await runChatQuery(starterText)
+  }
+
+  const runChatQuery = async (messageText) => {
+    // Append user turn
+    const newHistory = [...chatHistory, { sender: 'user', text: messageText }]
+    setChatHistory(newHistory)
+    setChatLoading(true)
+    setChatStreamingText('Pensando...')
+
+    try {
+      const stream = await sendFollowUp(messageText, chatHistory, client)
+      const reader = stream.getReader()
+      let accumulated = ""
+      setChatStreamingText("") // Clear loader placeholder
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        accumulated += value
+        setChatStreamingText(accumulated)
+      }
+
+      // Append model turn
+      setChatHistory(prev => [...prev, { sender: 'model', text: accumulated }])
+      setChatStreamingText('')
+    } catch (err) {
+      console.error('Chat error:', err)
+      setChatHistory(prev => [...prev, { sender: 'model', text: `Error: ${err.message || 'Error al enviar mensaje.'}` }])
+      setChatStreamingText('')
+    } finally {
+      setChatLoading(false)
+    }
+  }
 
   if (!client) {
     return (
@@ -33,7 +199,6 @@ function ClientDetails() {
 
   const riskPercent = Math.round(client.churn_score * 100)
 
-  // Severity indicator classes
   let riskClass = 'risk-low'
   let riskLabel = 'Bajo'
   if (riskPercent >= 75) {
@@ -44,19 +209,38 @@ function ClientDetails() {
     riskLabel = 'Moderado'
   }
 
-  // Mocked risk factor values from ML model
-  const riskFactors = [
-    { label: 'Frecuencia de compra', change: '-32% en los últimos 30 días', status: riskPercent >= 50 ? 'negative' : 'stable' },
-    { label: 'Volumen medio de pedido', change: '-15% esta semana', status: riskPercent >= 75 ? 'negative' : 'stable' },
-    { label: 'Visitas del asesor comercial', change: 'Sin contacto presencial por 45 días', status: 'warning' },
-  ]
+  const riskFactors = client.razones
+    ? client.razones.split('|').map((reason) => {
+        const trimmed = reason.trim()
+        let status = 'stable'
+        const lower = trimmed.toLowerCase()
+        if (lower.includes('caída') || lower.includes('perdió') || lower.includes('riesgo') || lower.includes('abandono') || lower.includes('disminuy')) {
+          status = 'negative'
+        } else if (lower.includes('nuevo') || lower.includes('no consolidado')) {
+          status = 'warning'
+        }
+        return { label: trimmed, change: '', status }
+      })
+    : [
+        { label: 'Frecuencia de compra', change: '-32% en los últimos 30 días', status: riskPercent >= 50 ? 'negative' : 'stable' },
+        { label: 'Volumen medio de pedido', change: '-15% esta semana', status: riskPercent >= 75 ? 'negative' : 'stable' },
+        { label: 'Visitas del asesor comercial', change: 'Sin contacto presencial por 45 días', status: 'warning' },
+      ]
 
-  // Preventative recommendation list
-  const recommendations = [
-    'Programar llamada inmediata del asesor comercial para evaluar la satisfacción de la tienda.',
-    'Ofrecer un cupón de descuento especial del 15% en el próximo pedido de abasto.',
-    'Presentar promociones personalizadas basadas en su subcanal comercial.'
-  ]
+  const recommendations = client.propuestas
+    ? client.propuestas.split('|').map(p => p.trim())
+    : [
+        'Programar llamada inmediata del asesor comercial para evaluar la satisfacción de la tienda.',
+        'Ofrecer un cupón de descuento especial del 15% en el próximo pedido de abasto.',
+        'Presentar promociones personalizadas basadas en su subcanal comercial.'
+      ]
+
+  // Circular gauge config
+  const radius = 55
+  const stroke = 8
+  const normalizedRadius = radius - stroke * 2
+  const circumference = normalizedRadius * 2 * Math.PI
+  const strokeDashoffset = circumference - (riskPercent / 100) * circumference
 
   return (
     <div id="details-page">
@@ -65,46 +249,83 @@ function ClientDetails() {
         <h1>Desglose de Cliente</h1>
       </div>
 
-      <div className="details-card">
-        <div className="details-title-section">
-          <h2>{client.cliente_id}</h2>
-          <span className={`risk-badge ${riskClass}`}>{riskPercent}% Churn Risk ({riskLabel})</span>
-        </div>
+      {/* Top Row: Store Profile, ML Factors, and Recommendations side-by-side */}
+      <div className="details-top-grid">
+        
+        {/* Profile Card */}
+        <div className="details-card-panel client-profile-card">
+          <h2>{client.cliente_id.length > 20 ? client.cliente_id.substring(0, 12) + '...' : client.cliente_id}</h2>
+          
+          {/* Circular Risk Gauge */}
+          <div className="gauge-wrapper">
+            <div className="risk-gauge-container">
+              <svg height={radius * 2} width={radius * 2} className="risk-gauge-svg">
+                <circle
+                  stroke="rgba(0, 0, 0, 0.05)"
+                  fill="transparent"
+                  strokeWidth={stroke}
+                  r={normalizedRadius}
+                  cx={radius}
+                  cy={radius}
+                  style={{ backgroundColor: 'transparent' }}
+                />
+                <circle
+                  className={`risk-gauge-circle ${riskClass}`}
+                  strokeDasharray={circumference + ' ' + circumference}
+                  style={{ strokeDashoffset, backgroundColor: 'transparent' }}
+                  strokeWidth={stroke}
+                  r={normalizedRadius}
+                  cx={radius}
+                  cy={radius}
+                />
+              </svg>
+              <div className="risk-gauge-value">
+                <span className="risk-gauge-num">{riskPercent}%</span>
+                <span className="risk-gauge-label">Riesgo</span>
+              </div>
+            </div>
+            <div className="risk-label-badge-wrapper">
+              <span className={`risk-label-badge ${riskClass}`}>Riesgo {riskLabel}</span>
+            </div>
+          </div>
 
-        <div className="details-grid">
-          {/* Demographic card */}
-          <div className="details-section-box">
-            <h3>Información General</h3>
+          <div className="client-info-table">
             <div className="info-row">
-              <span className="info-label">Territorio:</span>
+              <span className="info-label">Territorio</span>
               <span className="info-value">{client.territorio}</span>
             </div>
             <div className="info-row">
-              <span className="info-label">Subcanal:</span>
+              <span className="info-label">Subcanal</span>
               <span className="info-value">{client.subchannel}</span>
             </div>
-            <div className="info-row">
-              <span className="info-label">Tamaño de Tienda:</span>
+             <div className="info-row">
+              <span className="info-label">Tamaño</span>
               <span className="info-value">{client.tamano}</span>
             </div>
-          </div>
-
-          {/* Model factors card */}
-          <div className="details-section-box">
-            <h3>Factores del Modelo ML</h3>
-            <div className="factors-list">
-              {riskFactors.map((factor, index) => (
-                <div key={index} className="factor-item">
-                  <span className="factor-name">{factor.label}</span>
-                  <span className={`factor-change ${factor.status}`}>{factor.change}</span>
-                </div>
-              ))}
-            </div>
+            {client.num_coolers !== undefined && client.num_coolers > 0 && (
+              <div className="info-row">
+                <span className="info-label">Enfriadores</span>
+                <span className="info-value">{client.num_coolers} ({client.num_doors || 0} ptas)</span>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Action recommendations */}
-        <div className="details-section-box recommendations-box">
+        {/* ML Factors Card */}
+        <div className="details-card-panel ml-factors-card">
+          <h3>Factores del Modelo ML</h3>
+          <div className="factors-list">
+            {riskFactors.map((factor, index) => (
+              <div key={index} className="factor-item">
+                <span className="factor-name">{factor.label}</span>
+                <span className={`factor-change ${factor.status}`}>{factor.change}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Static recommendations */}
+        <div className="details-card-panel recommendations-panel">
           <h3>Recomendaciones Preventivas</h3>
           <ul className="rec-list">
             {recommendations.map((rec, index) => (
@@ -112,6 +333,112 @@ function ClientDetails() {
             ))}
           </ul>
         </div>
+
+      </div>
+
+      {/* Bottom Row: Gemini Analysis & Live Chat side-by-side */}
+      <div className="details-bottom-grid">
+        
+        {/* IA Analysis Box */}
+        <div className="details-card-panel gemini-analysis-box">
+          <div className="gemini-box-header">
+            <span className="gemini-sparkle-icon">✨</span>
+            <h3>Análisis Inteligente por IA</h3>
+          </div>
+          
+          {analysisLoading && !analysisText && (
+            <div className="gemini-loading">
+              <div className="spinner"></div>
+              <span>Consultando Gemini, ejecutando razonamiento (Thinking) y buscando competencia en Google Search (Grounding)...</span>
+            </div>
+          )}
+          
+          {analysisError && (
+            <div className="gemini-error">⚠️ {analysisError}</div>
+          )}
+          
+          {analysisText && (
+            <div className="gemini-analysis-content" style={{ padding: '4px 0' }}>
+              <div className="analysis-text-markdown">
+                {renderMarkdown(analysisText)}
+              </div>
+            </div>
+          )}
+
+          {!analysisText && !analysisLoading && (
+            <div className="gemini-trigger-container">
+              <button 
+                type="button" 
+                className="gemini-trigger-btn"
+                onClick={fetchAnalysis}
+              >
+                Generar Análisis Inteligente ✨
+              </button>
+              <p className="gemini-trigger-hint">
+                Haz clic para iniciar el análisis con Google Search (Grounding) y Razonamiento (Thinking)
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* IA Follow-up Chat Box */}
+        <div className="details-card-panel gemini-chat-box">
+          <div className="gemini-box-header">
+            <span className="gemini-sparkle-icon">💬</span>
+            <h3>Consultas de Seguimiento en Vivo</h3>
+          </div>
+          <p className="chat-intro">Pregúntale a Gemini ideas de negociación, competidores regionales o estrategias de retención específicas para esta tienda.</p>
+          
+          <div className="chat-messages-list">
+            {chatHistory.length === 0 && !chatStreamingText && (
+              <div className="chat-empty-state-container">
+                <button 
+                  type="button" 
+                  className="chat-starter-btn-large"
+                  onClick={() => handleStarterClick("¿Qué más puedo saber?")}
+                >
+                  ¿Qué más puedo saber?
+                </button>
+                <p className="chat-starter-hint">Haz clic para iniciar el análisis interactivo de Gemini</p>
+              </div>
+            )}
+            {chatHistory.map((msg, i) => (
+              <div key={i} className={`chat-message ${msg.sender === 'user' ? 'msg-user' : 'msg-model'}`}>
+                <span className="msg-avatar">{msg.sender === 'user' ? 'Comercial' : 'Gemini'}</span>
+                <div className="msg-text">
+                  {msg.sender === 'user' ? msg.text : renderMarkdown(msg.text)}
+                </div>
+              </div>
+            ))}
+            {chatStreamingText && (
+              <div className="chat-message msg-model streaming">
+                <span className="msg-avatar">Gemini</span>
+                <div className="msg-text">
+                  {renderMarkdown(chatStreamingText)}
+                </div>
+              </div>
+            )}
+            <div ref={chatEndRef} />
+          </div>
+
+          {(chatHistory.length > 0 || chatStreamingText) && (
+            <form onSubmit={handleSendChat} className="chat-form">
+              <input
+                type="text"
+                placeholder="Ej. ¿Qué descuento especial le puedo ofrecer y cómo lo justifico?"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                disabled={chatLoading}
+                className="chat-input-field"
+                aria-label="Consulta a Gemini"
+              />
+              <button type="submit" disabled={chatLoading || !chatInput.trim()} className="chat-submit-btn">
+                Consultar
+              </button>
+            </form>
+          )}
+        </div>
+
       </div>
     </div>
   )
