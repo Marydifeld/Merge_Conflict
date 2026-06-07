@@ -1,7 +1,8 @@
 import Navbar from "./Components/Navbar";
 import Churn from "./pages/Churn";
 import Inicio from "./pages/mainPage";
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import ClientDetails from "./pages/ClientDetails";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 export default function App() {
   return (
@@ -10,7 +11,9 @@ export default function App() {
     <Routes>
       <Route path="/churn" element={<Churn />} />
       <Route path="/mainPage" element={<Inicio />} />
+      <Route path="/details/:clientId" element={<ClientDetails />} />
     </Routes>
     </BrowserRouter>
   );
 }
+

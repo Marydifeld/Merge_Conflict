@@ -1,0 +1,2820 @@
+{
+  "metadata": {
+    "generado": "2026-06-06",
+    "periodo_prediccion": "202602",
+    "periodo_historico": "202401-202601",
+    "nota": "prob_churn de demo_clientes (muestra 1000 clientes); volumetria de universo completo 241805 clientes"
+  },
+  "kpis_globales": {
+    "total_clientes_universo": 241805,
+    "ya_churnaron_universo": 43402,
+    "tasa_churn_historica_pct": 17.95,
+    "clientes_muestra_demo": 1000,
+    "activos_muestra": 995,
+    "inactivos_muestra": 5,
+    "en_riesgo_alto_muestra": 161,
+    "en_riesgo_medio_muestra": 14,
+    "en_riesgo_bajo_muestra": 820,
+    "prob_churn_promedio": 0.1672,
+    "prob_churn_alto_riesgo_umbral": 0.5
+  },
+  "serie_tiempo_global": [
+    {
+      "mes": "2024-01",
+      "transacciones": 69568,
+      "cajas": 172053.42,
+      "clientes_activos": 836
+    },
+    {
+      "mes": "2024-02",
+      "transacciones": 71750,
+      "cajas": 176392.55,
+      "clientes_activos": 843
+    },
+    {
+      "mes": "2024-03",
+      "transacciones": 77464,
+      "cajas": 202378.99,
+      "clientes_activos": 853
+    },
+    {
+      "mes": "2024-04",
+      "transacciones": 85902,
+      "cajas": 218385.52,
+      "clientes_activos": 856
+    },
+    {
+      "mes": "2024-05",
+      "transacciones": 97800,
+      "cajas": 255388.68,
+      "clientes_activos": 855
+    },
+    {
+      "mes": "2024-06",
+      "transacciones": 88281,
+      "cajas": 239947.81,
+      "clientes_activos": 855
+    },
+    {
+      "mes": "2024-07",
+      "transacciones": 87630,
+      "cajas": 241545.83,
+      "clientes_activos": 856
+    },
+    {
+      "mes": "2024-08",
+      "transacciones": 91459,
+      "cajas": 248307.02,
+      "clientes_activos": 861
+    },
+    {
+      "mes": "2024-09",
+      "transacciones": 81944,
+      "cajas": 218758.57,
+      "clientes_activos": 863
+    },
+    {
+      "mes": "2024-10",
+      "transacciones": 86961,
+      "cajas": 228432.77,
+      "clientes_activos": 862
+    },
+    {
+      "mes": "2024-11",
+      "transacciones": 80191,
+      "cajas": 208572.74,
+      "clientes_activos": 856
+    },
+    {
+      "mes": "2024-12",
+      "transacciones": 75079,
+      "cajas": 205560.77,
+      "clientes_activos": 845
+    },
+    {
+      "mes": "2025-01",
+      "transacciones": 71241,
+      "cajas": 174311.26,
+      "clientes_activos": 847
+    },
+    {
+      "mes": "2025-02",
+      "transacciones": 69669,
+      "cajas": 178370.39,
+      "clientes_activos": 847
+    },
+    {
+      "mes": "2025-03",
+      "transacciones": 80104,
+      "cajas": 204145.66,
+      "clientes_activos": 845
+    },
+    {
+      "mes": "2025-04",
+      "transacciones": 81826,
+      "cajas": 216635.07,
+      "clientes_activos": 846
+    },
+    {
+      "mes": "2025-05",
+      "transacciones": 91826,
+      "cajas": 242955.22,
+      "clientes_activos": 846
+    },
+    {
+      "mes": "2025-06",
+      "transacciones": 84850,
+      "cajas": 222789.71,
+      "clientes_activos": 843
+    },
+    {
+      "mes": "2025-07",
+      "transacciones": 87627,
+      "cajas": 237738.13,
+      "clientes_activos": 844
+    },
+    {
+      "mes": "2025-08",
+      "transacciones": 83365,
+      "cajas": 223465.06,
+      "clientes_activos": 845
+    },
+    {
+      "mes": "2025-09",
+      "transacciones": 81267,
+      "cajas": 210872.41,
+      "clientes_activos": 841
+    },
+    {
+      "mes": "2025-10",
+      "transacciones": 85409,
+      "cajas": 214381.54,
+      "clientes_activos": 845
+    },
+    {
+      "mes": "2025-11",
+      "transacciones": 77516,
+      "cajas": 191978.56,
+      "clientes_activos": 841
+    },
+    {
+      "mes": "2025-12",
+      "transacciones": 78050,
+      "cajas": 210197.02,
+      "clientes_activos": 840
+    },
+    {
+      "mes": "2026-01",
+      "transacciones": 69440,
+      "cajas": 167697.0,
+      "clientes_activos": 841
+    }
+  ],
+  "serie_tiempo_subchannel": {
+    "Abarrotes y bodegas": [
+      {
+        "mes": "2024-01",
+        "transacciones": 29285
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 30537
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 33200
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 36233
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 41418
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 37383
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 37101
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 37769
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 34003
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 36480
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 33544
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 31163
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 29881
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 29048
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 33567
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 34520
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 38633
+      },
+      {
+        "mes": "2025-06",
+        "transacciones": 35811
+      },
+      {
+        "mes": "2025-07",
+        "transacciones": 36325
+      },
+      {
+        "mes": "2025-08",
+        "transacciones": 34328
+      },
+      {
+        "mes": "2025-09",
+        "transacciones": 33548
+      },
+      {
+        "mes": "2025-10",
+        "transacciones": 35623
+      },
+      {
+        "mes": "2025-11",
+        "transacciones": 32415
+      },
+      {
+        "mes": "2025-12",
+        "transacciones": 32643
+      },
+      {
+        "mes": "2026-01",
+        "transacciones": 29466
+      }
+    ],
+    "Kiosco": [
+      {
+        "mes": "2024-01",
+        "transacciones": 18236
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 19073
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 20278
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 22638
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 25998
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 23450
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 22542
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 24690
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 21664
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 22758
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 21666
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 20108
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 18752
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 19313
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 21694
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 21972
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 24679
+      },
+      {
+        "mes": "2025-06",
+        "transacciones": 22243
+      },
+      {
+        "mes": "2025-07",
+        "transacciones": 23280
+      },
+      {
+        "mes": "2025-08",
+        "transacciones": 22580
+      },
+      {
+        "mes": "2025-09",
+        "transacciones": 21780
+      },
+      {
+        "mes": "2025-10",
+        "transacciones": 22725
+      },
+      {
+        "mes": "2025-11",
+        "transacciones": 20275
+      },
+      {
+        "mes": "2025-12",
+        "transacciones": 20406
+      },
+      {
+        "mes": "2026-01",
+        "transacciones": 18082
+      }
+    ],
+    "Hogares": [
+      {
+        "mes": "2024-01",
+        "transacciones": 7569
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 7429
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 7773
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 8848
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 10023
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 9029
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 9144
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 9624
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 8876
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 8889
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 8029
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 7463
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 7206
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 6774
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 8103
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 8159
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 9033
+      },
+      {
+        "mes": "2025-06",
+        "transacciones": 8451
+      },
+      {
+        "mes": "2025-07",
+        "transacciones": 9085
+      },
+      {
+        "mes": "2025-08",
+        "transacciones": 8809
+      },
+      {
+        "mes": "2025-09",
+        "transacciones": 8419
+      },
+      {
+        "mes": "2025-10",
+        "transacciones": 9022
+      },
+      {
+        "mes": "2025-11",
+        "transacciones": 8131
+      },
+      {
+        "mes": "2025-12",
+        "transacciones": 8536
+      },
+      {
+        "mes": "2026-01",
+        "transacciones": 7364
+      }
+    ],
+    "Licorería": [
+      {
+        "mes": "2024-01",
+        "transacciones": 5484
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 5503
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 6186
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 7124
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 7719
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 6607
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 6948
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 6884
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 6214
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 6485
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 6331
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 5986
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 5593
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 5334
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 6127
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 6239
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 7075
+      },
+      {
+        "mes": "2025-06",
+        "transacciones": 6280
+      },
+      {
+        "mes": "2025-07",
+        "transacciones": 6710
+      },
+      {
+        "mes": "2025-08",
+        "transacciones": 6388
+      },
+      {
+        "mes": "2025-09",
+        "transacciones": 6087
+      },
+      {
+        "mes": "2025-10",
+        "transacciones": 6468
+      },
+      {
+        "mes": "2025-11",
+        "transacciones": 6093
+      },
+      {
+        "mes": "2025-12",
+        "transacciones": 6023
+      },
+      {
+        "mes": "2026-01",
+        "transacciones": 5369
+      }
+    ],
+    "Verdulería": [
+      {
+        "mes": "2024-01",
+        "transacciones": 2000
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 2137
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 2372
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 2334
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 2672
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 2644
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 2465
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 2858
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 2601
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 2912
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 2583
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 2472
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 2391
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 2410
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 2653
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 2809
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 3139
+      },
+      {
+        "mes": "2025-06",
+        "transacciones": 2889
+      },
+      {
+        "mes": "2025-07",
+        "transacciones": 2969
+      },
+      {
+        "mes": "2025-08",
+        "transacciones": 2828
+      },
+      {
+        "mes": "2025-09",
+        "transacciones": 2889
+      },
+      {
+        "mes": "2025-10",
+        "transacciones": 2888
+      },
+      {
+        "mes": "2025-11",
+        "transacciones": 2746
+      },
+      {
+        "mes": "2025-12",
+        "transacciones": 2678
+      },
+      {
+        "mes": "2026-01",
+        "transacciones": 2371
+      }
+    ]
+  },
+  "mapa_riesgo_territorio": [
+    {
+      "territorio": "Culiacan",
+      "total_clientes_muestra": 56,
+      "prob_churn_avg": 0.2959,
+      "alto_riesgo": 17,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "alto",
+      "ya_churnaron_universo": 2253,
+      "total_universo": 11533,
+      "tasa_churn_hist_pct": 19.54
+    },
+    {
+      "territorio": "Comarca Lagunera",
+      "total_clientes_muestra": 54,
+      "prob_churn_avg": 0.2567,
+      "alto_riesgo": 14,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "alto",
+      "ya_churnaron_universo": 2680,
+      "total_universo": 12929,
+      "tasa_churn_hist_pct": 20.73
+    },
+    {
+      "territorio": "Reynosa",
+      "total_clientes_muestra": 35,
+      "prob_churn_avg": 0.2421,
+      "alto_riesgo": 8,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 1983,
+      "total_universo": 7666,
+      "tasa_churn_hist_pct": 25.87
+    },
+    {
+      "territorio": "Guadalajara",
+      "total_clientes_muestra": 127,
+      "prob_churn_avg": 0.2287,
+      "alto_riesgo": 29,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 7003,
+      "total_universo": 31613,
+      "tasa_churn_hist_pct": 22.15
+    },
+    {
+      "territorio": "San Luis Potosi",
+      "total_clientes_muestra": 54,
+      "prob_churn_avg": 0.2021,
+      "alto_riesgo": 10,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 3267,
+      "total_universo": 15587,
+      "tasa_churn_hist_pct": 20.96
+    },
+    {
+      "territorio": "Monterrey",
+      "total_clientes_muestra": 112,
+      "prob_churn_avg": 0.1879,
+      "alto_riesgo": 21,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 4918,
+      "total_universo": 25214,
+      "tasa_churn_hist_pct": 19.51
+    },
+    {
+      "territorio": "Obregon",
+      "total_clientes_muestra": 36,
+      "prob_churn_avg": 0.1775,
+      "alto_riesgo": 7,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 939,
+      "total_universo": 6459,
+      "tasa_churn_hist_pct": 14.54
+    },
+    {
+      "territorio": "Juarez",
+      "total_clientes_muestra": 31,
+      "prob_churn_avg": 0.1758,
+      "alto_riesgo": 5,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 1482,
+      "total_universo": 8395,
+      "tasa_churn_hist_pct": 17.65
+    },
+    {
+      "territorio": "Monclova",
+      "total_clientes_muestra": 15,
+      "prob_churn_avg": 0.1682,
+      "alto_riesgo": 2,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 811,
+      "total_universo": 3131,
+      "tasa_churn_hist_pct": 25.9
+    },
+    {
+      "territorio": "Laredo",
+      "total_clientes_muestra": 12,
+      "prob_churn_avg": 0.1669,
+      "alto_riesgo": 2,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 487,
+      "total_universo": 2211,
+      "tasa_churn_hist_pct": 22.03
+    },
+    {
+      "territorio": "Saltillo",
+      "total_clientes_muestra": 25,
+      "prob_churn_avg": 0.1586,
+      "alto_riesgo": 4,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 1663,
+      "total_universo": 7585,
+      "tasa_churn_hist_pct": 21.92
+    },
+    {
+      "territorio": "Matamoros",
+      "total_clientes_muestra": 19,
+      "prob_churn_avg": 0.1525,
+      "alto_riesgo": 2,
+      "medio_riesgo": 3,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 1189,
+      "total_universo": 5220,
+      "tasa_churn_hist_pct": 22.78
+    },
+    {
+      "territorio": "Piedras negras",
+      "total_clientes_muestra": 26,
+      "prob_churn_avg": 0.1495,
+      "alto_riesgo": 4,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 807,
+      "total_universo": 4045,
+      "tasa_churn_hist_pct": 19.95
+    },
+    {
+      "territorio": "Hermosillo",
+      "total_clientes_muestra": 34,
+      "prob_churn_avg": 0.1403,
+      "alto_riesgo": 5,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 1067,
+      "total_universo": 5762,
+      "tasa_churn_hist_pct": 18.52
+    },
+    {
+      "territorio": "La Paz",
+      "total_clientes_muestra": 19,
+      "prob_churn_avg": 0.1388,
+      "alto_riesgo": 3,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 869,
+      "total_universo": 4779,
+      "tasa_churn_hist_pct": 18.18
+    },
+    {
+      "territorio": "Jalisco",
+      "total_clientes_muestra": 74,
+      "prob_churn_avg": 0.1325,
+      "alto_riesgo": 10,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 2451,
+      "total_universo": 20492,
+      "tasa_churn_hist_pct": 11.96
+    },
+    {
+      "territorio": "Chihuahua",
+      "total_clientes_muestra": 12,
+      "prob_churn_avg": 0.1079,
+      "alto_riesgo": 1,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 445,
+      "total_universo": 3638,
+      "tasa_churn_hist_pct": 12.23
+    },
+    {
+      "territorio": "Nuevo Leon",
+      "total_clientes_muestra": 10,
+      "prob_churn_avg": 0.1057,
+      "alto_riesgo": 1,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 531,
+      "total_universo": 3172,
+      "tasa_churn_hist_pct": 16.74
+    },
+    {
+      "territorio": "Mexicali",
+      "total_clientes_muestra": 27,
+      "prob_churn_avg": 0.0985,
+      "alto_riesgo": 2,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 860,
+      "total_universo": 5779,
+      "tasa_churn_hist_pct": 14.88
+    },
+    {
+      "territorio": "Zacatecas",
+      "total_clientes_muestra": 65,
+      "prob_churn_avg": 0.0971,
+      "alto_riesgo": 5,
+      "medio_riesgo": 1,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 2343,
+      "total_universo": 14431,
+      "tasa_churn_hist_pct": 16.24
+    },
+    {
+      "territorio": "Mesa Central",
+      "total_clientes_muestra": 31,
+      "prob_churn_avg": 0.0966,
+      "alto_riesgo": 3,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 983,
+      "total_universo": 7451,
+      "tasa_churn_hist_pct": 13.19
+    },
+    {
+      "territorio": "Mazatlan",
+      "total_clientes_muestra": 25,
+      "prob_churn_avg": 0.095,
+      "alto_riesgo": 2,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 804,
+      "total_universo": 6470,
+      "tasa_churn_hist_pct": 12.43
+    },
+    {
+      "territorio": "Aguascalientes",
+      "total_clientes_muestra": 45,
+      "prob_churn_avg": 0.0899,
+      "alto_riesgo": 3,
+      "medio_riesgo": 2,
+      "nivel_riesgo_zona": "medio",
+      "ya_churnaron_universo": 2461,
+      "total_universo": 15230,
+      "tasa_churn_hist_pct": 16.16
+    },
+    {
+      "territorio": "Durango",
+      "total_clientes_muestra": 34,
+      "prob_churn_avg": 0.0332,
+      "alto_riesgo": 1,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "bajo",
+      "ya_churnaron_universo": 513,
+      "total_universo": 8173,
+      "tasa_churn_hist_pct": 6.28
+    },
+    {
+      "territorio": "Delicias",
+      "total_clientes_muestra": 17,
+      "prob_churn_avg": 0.0132,
+      "alto_riesgo": 0,
+      "medio_riesgo": 0,
+      "nivel_riesgo_zona": "bajo",
+      "ya_churnaron_universo": 593,
+      "total_universo": 4840,
+      "tasa_churn_hist_pct": 12.25
+    }
+  ],
+  "kpis_por_subchannel": [
+    {
+      "subchannel": "Hogares",
+      "total_clientes": 289,
+      "prob_churn_avg": 0.2718,
+      "alto_riesgo": 77
+    },
+    {
+      "subchannel": "Tienda orgánica",
+      "total_clientes": 13,
+      "prob_churn_avg": 0.21,
+      "alto_riesgo": 3
+    },
+    {
+      "subchannel": "Licorería",
+      "total_clientes": 94,
+      "prob_churn_avg": 0.1824,
+      "alto_riesgo": 17
+    },
+    {
+      "subchannel": "Tiendas de carne/pollo/pescado",
+      "total_clientes": 25,
+      "prob_churn_avg": 0.1655,
+      "alto_riesgo": 4
+    },
+    {
+      "subchannel": "Verdulería",
+      "total_clientes": 35,
+      "prob_churn_avg": 0.1537,
+      "alto_riesgo": 5
+    },
+    {
+      "subchannel": "Mayorista",
+      "total_clientes": 8,
+      "prob_churn_avg": 0.1258,
+      "alto_riesgo": 1
+    },
+    {
+      "subchannel": "Abarrotes y bodegas",
+      "total_clientes": 252,
+      "prob_churn_avg": 0.1228,
+      "alto_riesgo": 30
+    },
+    {
+      "subchannel": "Tortillería",
+      "total_clientes": 24,
+      "prob_churn_avg": 0.1036,
+      "alto_riesgo": 2
+    },
+    {
+      "subchannel": "Kiosco",
+      "total_clientes": 219,
+      "prob_churn_avg": 0.1031,
+      "alto_riesgo": 21
+    },
+    {
+      "subchannel": "Minisuper",
+      "total_clientes": 15,
+      "prob_churn_avg": 0.0665,
+      "alto_riesgo": 1
+    },
+    {
+      "subchannel": "Farmacia",
+      "total_clientes": 15,
+      "prob_churn_avg": 0.0246,
+      "alto_riesgo": 0
+    },
+    {
+      "subchannel": "Panadería",
+      "total_clientes": 3,
+      "prob_churn_avg": 0.0016,
+      "alto_riesgo": 0
+    },
+    {
+      "subchannel": "Proximidad",
+      "total_clientes": 3,
+      "prob_churn_avg": 0.0,
+      "alto_riesgo": 0
+    }
+  ],
+  "top_50_clientes_riesgo": [
+    {
+      "customer_id": "a62abd65f49b67efd8b8c244da29748bbbe4d8b8405cd018d0893dc9",
+      "territorio": "Guadalajara",
+      "subchannel": "Kiosco",
+      "tamanio": "Pequeño",
+      "prob_churn": 0.999945,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "764f7a3ed508a0f9fef2eb7620f6f2939b08f06e30aea6bdfac1017a",
+      "territorio": "Comarca Lagunera",
+      "subchannel": "Kiosco",
+      "tamanio": "Mini",
+      "prob_churn": 0.999847,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "144881a629564de903867ec61a6bdc05f2f2b009a713336be712b10d",
+      "territorio": "Comarca Lagunera",
+      "subchannel": "Kiosco",
+      "tamanio": "Mini",
+      "prob_churn": 0.999843,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "91f3cb6830d6b367e044830ad466bf2c6d4ff42bf261697ee6948d7a",
+      "territorio": "Obregon",
+      "subchannel": "Kiosco",
+      "tamanio": "Mini",
+      "prob_churn": 0.999826,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "9c026a57b60a7fc8e4466b1f6c19686ff1ca2a8892c64a9a8a1bde27",
+      "territorio": "Chihuahua",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.999797,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "154b4a97072595b35c42b0d3f4e8b2c527052c8eb18fc2948c8bdb3d",
+      "territorio": "Reynosa",
+      "subchannel": "Kiosco",
+      "tamanio": "Mini",
+      "prob_churn": 0.999736,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "26256a66ff697761adb5cdfcd852d1990fda5189a317b19ffbeddf00",
+      "territorio": "Juarez",
+      "subchannel": "Hogares",
+      "tamanio": "Mediano",
+      "prob_churn": 0.99973,
+      "nivel_riesgo": "Alto",
+      "razones": "Perdió enfriador asignado",
+      "propuestas": "Revisar y restablecer cobertura de enfriador",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "50ee66679152c2ef2378820e72e5fca05cbd90bc2424e05fc9176eba",
+      "territorio": "Piedras negras",
+      "subchannel": "Kiosco",
+      "tamanio": "Pequeño",
+      "prob_churn": 0.999711,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "124a39c95ec50e95cc53574a750bab865afaa001c778c4981982fb15",
+      "territorio": "Jalisco",
+      "subchannel": "Kiosco",
+      "tamanio": "Mini",
+      "prob_churn": 0.99934,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "3d18636dbe4f872370c8e12b6388c15ad4bb11d31369a02b288d6f45",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.99909,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "fed1fc55ffddb17f5864184532b7b182a3044ae67869676bf285f303",
+      "territorio": "Monterrey",
+      "subchannel": "Kiosco",
+      "tamanio": "Mini",
+      "prob_churn": 0.999049,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 1.0,
+      "num_doors": 2.0
+    },
+    {
+      "customer_id": "4df3ff0e7ed68e326c2ece796f195c3d4ec576a2d41492ae2e211e2f",
+      "territorio": "Culiacan",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.998994,
+      "nivel_riesgo": "Alto",
+      "razones": "Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "51c967421f6d66eb19b272825fbfa513c5dbbb9d023d8de343722b47",
+      "territorio": "San Luis Potosi",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.998971,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "7a65bc0107130968709853fa2e9755aff0ebefe36d6eb4d0631040bc",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mediano",
+      "prob_churn": 0.998907,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "3d43dd87aa3be767f3cc9f610b94245562ea94f92e5196966c125482",
+      "territorio": "San Luis Potosi",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.998795,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "d5f028bf04233165d532263c283da4857766a45de42845249dac1439",
+      "territorio": "Jalisco",
+      "subchannel": "Kiosco",
+      "tamanio": "Mini",
+      "prob_churn": 0.998729,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "39f065f112daa4942676381df83fddc79bb1db5592ef0c479925dcc6",
+      "territorio": "San Luis Potosi",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.998674,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "ca2e0f51c39b94ba2fe6279833b395af185397a7cd293bd88eb8ea76",
+      "territorio": "Laredo",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.998575,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 1.0,
+      "num_doors": 1.0
+    },
+    {
+      "customer_id": "fad965c67e40b8dab60efffa3d6fa2b8a2a4154d86219152352fe73b",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.998541,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "8ca83404297ea2e64bf9184d2d0116241439085761227d49201f11bd",
+      "territorio": "Zacatecas",
+      "subchannel": "Licorería",
+      "tamanio": "Mini",
+      "prob_churn": 0.998334,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "9f28864583b35eb3074f3be420082de61cd27ea6360e16763dbbb66e",
+      "territorio": "San Luis Potosi",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.998283,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "49150933eeec3cd852f1050caf254c953d37540315f0ec1b885a14ca",
+      "territorio": "San Luis Potosi",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.998283,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "d662e6684ccdc6ce8a586bf19d68066c522c3c808a8cc944dca4fb19",
+      "territorio": "Mazatlan",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.998273,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "edf85c265a021a9c30258ef801478881eba3c175e8861d6f3d1c149f",
+      "territorio": "Reynosa",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.998057,
+      "nivel_riesgo": "Alto",
+      "razones": "Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "512a10c0e286c2623e2f3a2fef56ce77206e9a82c5ab56bbfc91959f",
+      "territorio": "Monterrey",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.998009,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "01fe81b8e03f6b9d7b72e3cc4f498baff3108483a642f9c7a66e795c",
+      "territorio": "Juarez",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.997935,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "229937479a67de72d704d65d47be67a3a6c3f3a4d7d7e2d1fb117dbd",
+      "territorio": "Juarez",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.997812,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "83faebea1bab2f3428bc186fb157081c80c238e84fee1f9b247f60e6",
+      "territorio": "Comarca Lagunera",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.997738,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "c40053593f73a7b19bc598dc938ac929025681df6302b472024aa9c3",
+      "territorio": "Monterrey",
+      "subchannel": "Kiosco",
+      "tamanio": "Pequeño",
+      "prob_churn": 0.997426,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "aa5b3ea85c06248e9ca1923dcdc4f979f28db4660d29ead6c736e290",
+      "territorio": "Reynosa",
+      "subchannel": "Hogares",
+      "tamanio": "Pequeño",
+      "prob_churn": 0.997219,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "f81424b733748d2c01e19dea7ba09c245e35efb8b2cec441be5733a3",
+      "territorio": "Laredo",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.997171,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "d38b65636bb29e3062c0e809adc6da81804e6964d11a8bf15fa44899",
+      "territorio": "San Luis Potosi",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.996819,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "52746eebadbeca1127710bb64cd5aa94d10823e248ca7a9a3fa6772a",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.996778,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "ec61fbe059455f81059c0f4673293834ad3df24e19acac7e3322a67c",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.996778,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "3b510832055221b9e7b7d618b6930e5ec8aa6dd20e3a35028655bbaf",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.996778,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "cb149d28d8287419d0f7d63e0044d38f7caf3cdc93dfc481faec2863",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.996778,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "5c325d5472432b4808fc629ff63bdea1c89eae0c01e4ca2130d17b9e",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.996778,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "b056bebbd8293952ca098ca806032a7b9c4a349dc2a4d19806ba74ee",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.996778,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "54f0b482f3e9b17e1df00a747f4784514e6cc54ba05ad4e3cf3703b2",
+      "territorio": "Guadalajara",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.996558,
+      "nivel_riesgo": "Alto",
+      "razones": "Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "20afa7a464d52250434cff97ec10a99a06384ae279647269e2ceb76f",
+      "territorio": "Guadalajara",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.996484,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "24ec0485ef41230a8f2c0ed0520e1e3f144628e866418013df661f52",
+      "territorio": "Juarez",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.996421,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 1.0,
+      "num_doors": 1.0
+    },
+    {
+      "customer_id": "93c2bd336163028eff107d239b3876e06fd956546105dd4032e9c1ce",
+      "territorio": "Monterrey",
+      "subchannel": "Licorería",
+      "tamanio": "Pequeño",
+      "prob_churn": 0.99634,
+      "nivel_riesgo": "Alto",
+      "razones": "Sin factores críticos detectados",
+      "propuestas": "Mantener seguimiento regular",
+      "num_coolers": 1.0,
+      "num_doors": 1.0
+    },
+    {
+      "customer_id": "1bc890b0fca31340b0e533b253bbf6f5c9d7612617d148a9c5182e97",
+      "territorio": "Guadalajara",
+      "subchannel": "Licorería",
+      "tamanio": "Mini",
+      "prob_churn": 0.996142,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono | Cliente relativamente nuevo, aún no consolidado",
+      "propuestas": "Asignar plan de retención para clientes pequeños | Reforzar acompañamiento en primeros meses",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "f867eec2e95520a2fa2c8533033dfb6c3c0859d9f5958a10641f8376",
+      "territorio": "Aguascalientes",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.996001,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "742a92054f90a191f903d30725fe2053e3f5b63affbc5b1ae3cead3c",
+      "territorio": "Guadalajara",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.995952,
+      "nivel_riesgo": "Alto",
+      "razones": "Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "479c3f1f0f93fd9a33fcaa4a944d4d191981450d3f82c414c0772721",
+      "territorio": "Zacatecas",
+      "subchannel": "Tiendas de carne/pollo/pescado",
+      "tamanio": "Mini",
+      "prob_churn": 0.995817,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "df39402999c3ee366839d4a5443655b8069283df3e55cacd884fcbd0",
+      "territorio": "Jalisco",
+      "subchannel": "Hogares",
+      "tamanio": "Mini",
+      "prob_churn": 0.995609,
+      "nivel_riesgo": "Alto",
+      "razones": "Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "0f147bd5afcce3e29e614f63d73a7eba1c6c05070364d1722dd80029",
+      "territorio": "Jalisco",
+      "subchannel": "Minisuper",
+      "tamanio": "Mini",
+      "prob_churn": 0.995573,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "024c07b5acc520d17de0d034a4c856003efd343df5f192cb3a804724",
+      "territorio": "Zacatecas",
+      "subchannel": "Abarrotes y bodegas",
+      "tamanio": "Mini",
+      "prob_churn": 0.995175,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    },
+    {
+      "customer_id": "c3a5c7c381bfc9ee8765c41eddca87f96f06c5698631b5b54c4a89f1",
+      "territorio": "La Paz",
+      "subchannel": "Verdulería",
+      "tamanio": "Mini",
+      "prob_churn": 0.995097,
+      "nivel_riesgo": "Alto",
+      "razones": "Ventas en caída los últimos 3 meses | Perdió enfriador asignado | Cliente pequeño con alta probabilidad de abandono",
+      "propuestas": "Ofrecer promoción o descuento especial para reactivar ventas | Revisar y restablecer cobertura de enfriador | Asignar plan de retención para clientes pequeños",
+      "num_coolers": 0.0,
+      "num_doors": 0.0
+    }
+  ],
+  "historiales_top20_riesgo": {
+    "a62abd65f49b...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 199,
+        "cajas": 412.38,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 207,
+        "cajas": 387.03,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 197,
+        "cajas": 407.96,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 264,
+        "cajas": 490.4,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 320,
+        "cajas": 634.86,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 265,
+        "cajas": 582.07,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 83,
+        "cajas": 165.95,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "764f7a3ed508...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 42,
+        "cajas": 89.52,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 53,
+        "cajas": 82.82,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 61,
+        "cajas": 113.83,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 77,
+        "cajas": 124.4,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 52,
+        "cajas": 82.24,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 21,
+        "cajas": 31.01,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 9,
+        "cajas": 15.29,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "144881a62956...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 73,
+        "cajas": 103.38,
+        "coolers": 4.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 76,
+        "cajas": 114.86,
+        "coolers": 4.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 88,
+        "cajas": 173.02,
+        "coolers": 4.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 92,
+        "cajas": 184.28,
+        "coolers": 4.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 88,
+        "cajas": 120.29,
+        "coolers": 4.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 86,
+        "cajas": 152.86,
+        "coolers": 3.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 98,
+        "cajas": 195.08,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 103,
+        "cajas": 193.71,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 79,
+        "cajas": 137.44,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 63,
+        "cajas": 102.15,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 77,
+        "cajas": 109.32,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 58,
+        "cajas": 127.59,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 79,
+        "cajas": 130.18,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 48,
+        "cajas": 99.2,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 17,
+        "cajas": 29.15,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 1,
+        "cajas": 0.63,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "91f3cb6830d6...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 59,
+        "cajas": 124.44,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 64,
+        "cajas": 94.85,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 65,
+        "cajas": 173.42,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 63,
+        "cajas": 153.63,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 68,
+        "cajas": 182.39,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 63,
+        "cajas": 183.58,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 75,
+        "cajas": 164.2,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 68,
+        "cajas": 149.33,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 58,
+        "cajas": 171.52,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 60,
+        "cajas": 155.82,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 54,
+        "cajas": 143.5,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 25,
+        "cajas": 69.82,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 1,
+        "cajas": 3.52,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "9c026a57b60a...": [
+      {
+        "mes": "2024-03",
+        "transacciones": 24,
+        "cajas": 41.75,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 55,
+        "cajas": 85.93,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 42,
+        "cajas": 78.53,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 79,
+        "cajas": 135.33,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 73,
+        "cajas": 108.39,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 68,
+        "cajas": 152.95,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 37,
+        "cajas": 98.27,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 2,
+        "cajas": 3.17,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "154b4a970725...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 28,
+        "cajas": 51.92,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 48,
+        "cajas": 92.83,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 41,
+        "cajas": 68.96,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 47,
+        "cajas": 81.38,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 43,
+        "cajas": 63.99,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 32,
+        "cajas": 40.12,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 2,
+        "cajas": 1.69,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "26256a66ff69...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 25,
+        "cajas": 39.73,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 64,
+        "cajas": 167.84,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 68,
+        "cajas": 202.42,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 18,
+        "cajas": 60.44,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "50ee66679152...": [
+      {
+        "mes": "2024-08",
+        "transacciones": 144,
+        "cajas": 414.16,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 79,
+        "cajas": 209.76,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 80,
+        "cajas": 160.25,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 82,
+        "cajas": 156.98,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 77,
+        "cajas": 163.31,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 62,
+        "cajas": 111.85,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 64,
+        "cajas": 125.24,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 76,
+        "cajas": 129.13,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 61,
+        "cajas": 124.91,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 22,
+        "cajas": 89.96,
+        "coolers": 2.0
+      },
+      {
+        "mes": "2025-06",
+        "transacciones": 38,
+        "cajas": 89.17,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-07",
+        "transacciones": 7,
+        "cajas": 4.28,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2025-08",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "124a39c95ec5...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 43,
+        "cajas": 84.25,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 34,
+        "cajas": 67.78,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 40,
+        "cajas": 72.31,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 40,
+        "cajas": 85.09,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 51,
+        "cajas": 93.31,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 47,
+        "cajas": 79.78,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 32,
+        "cajas": 69.05,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 44,
+        "cajas": 81.38,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 65,
+        "cajas": 110.08,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 36,
+        "cajas": 60.42,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 40,
+        "cajas": 70.37,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 31,
+        "cajas": 53.55,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 45,
+        "cajas": 71.45,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 34,
+        "cajas": 54.42,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 42,
+        "cajas": 71.03,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 37,
+        "cajas": 62.03,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 36,
+        "cajas": 59.04,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-06",
+        "transacciones": 22,
+        "cajas": 38.32,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-07",
+        "transacciones": 7,
+        "cajas": 8.76,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2025-08",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "3d18636dbe4f...": [
+      {
+        "mes": "2024-04",
+        "transacciones": 1,
+        "cajas": 10.57,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "fed1fc55ffdd...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 61,
+        "cajas": 230.55,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 68,
+        "cajas": 247.49,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 94,
+        "cajas": 334.12,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 116,
+        "cajas": 343.0,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 68,
+        "cajas": 336.13,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 93,
+        "cajas": 392.08,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 75,
+        "cajas": 275.55,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 101,
+        "cajas": 338.86,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 81,
+        "cajas": 264.14,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 79,
+        "cajas": 269.93,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 73,
+        "cajas": 264.47,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 12,
+        "cajas": 44.34,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 4,
+        "cajas": 11.2,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 1.0
+      }
+    ],
+    "4df3ff0e7ed6...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 20,
+        "cajas": 34.79,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 9,
+        "cajas": 16.05,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 7,
+        "cajas": 18.67,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 12,
+        "cajas": 29.38,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 30,
+        "cajas": 43.26,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 23,
+        "cajas": 55.97,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 24,
+        "cajas": 41.18,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 21,
+        "cajas": 53.51,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 7,
+        "cajas": 26.95,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 38,
+        "cajas": 69.68,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-11",
+        "transacciones": 28,
+        "cajas": 56.85,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-12",
+        "transacciones": 26,
+        "cajas": 45.37,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-01",
+        "transacciones": 28,
+        "cajas": 55.45,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-02",
+        "transacciones": 23,
+        "cajas": 41.18,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-03",
+        "transacciones": 11,
+        "cajas": 27.61,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-04",
+        "transacciones": 23,
+        "cajas": 47.13,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-05",
+        "transacciones": 38,
+        "cajas": 59.87,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-06",
+        "transacciones": 29,
+        "cajas": 58.03,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-07",
+        "transacciones": 26,
+        "cajas": 63.4,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2025-08",
+        "transacciones": 2,
+        "cajas": 0.56,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2025-09",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "51c967421f6d...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 3,
+        "cajas": 0.38,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 7,
+        "cajas": 6.83,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 4,
+        "cajas": 1.11,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 7,
+        "cajas": 9.67,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 3,
+        "cajas": 2.08,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 1,
+        "cajas": 0.18,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "7a65bc010713...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 157,
+        "cajas": 271.28,
+        "coolers": 3.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 117,
+        "cajas": 205.17,
+        "coolers": 3.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 72,
+        "cajas": 117.34,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "3d43dd87aa3b...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 23,
+        "cajas": 48.99,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 27,
+        "cajas": 38.22,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 40,
+        "cajas": 64.39,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 35,
+        "cajas": 67.99,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-05",
+        "transacciones": 49,
+        "cajas": 85.25,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-06",
+        "transacciones": 32,
+        "cajas": 57.14,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-07",
+        "transacciones": 11,
+        "cajas": 10.21,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-08",
+        "transacciones": 6,
+        "cajas": 1.06,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-09",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "d5f028bf0423...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 27,
+        "cajas": 48.71,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 20,
+        "cajas": 30.7,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 7,
+        "cajas": 1.63,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "39f065f112da...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 1,
+        "cajas": 3.52,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 1,
+        "cajas": 3.52,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "ca2e0f51c39b...": [
+      {
+        "mes": "2024-09",
+        "transacciones": 1,
+        "cajas": 0.42,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-10",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 1.0
+      }
+    ],
+    "fad965c67e40...": [
+      {
+        "mes": "2025-12",
+        "transacciones": 1,
+        "cajas": 7.04,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2026-01",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ],
+    "8ca83404297e...": [
+      {
+        "mes": "2024-01",
+        "transacciones": 7,
+        "cajas": 59.39,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-02",
+        "transacciones": 6,
+        "cajas": 4.16,
+        "coolers": 1.0
+      },
+      {
+        "mes": "2024-03",
+        "transacciones": 3,
+        "cajas": 0.39,
+        "coolers": 0.0
+      },
+      {
+        "mes": "2024-04",
+        "transacciones": 0,
+        "cajas": 0.0,
+        "coolers": 0.0
+      }
+    ]
+  },
+  "clientes_inactivos_muestra": [
+    {
+      "customer_id": "b2c638a5a76c2f350db050625c3658c3c8bd3897efb6f74ab719f24c",
+      "territorio": "Guadalajara",
+      "subchannel": "Verdulería",
+      "tamanio": "Grande",
+      "razones": "Cliente inactivo",
+      "propuestas": "Estrategia de reactivación"
+    },
+    {
+      "customer_id": "e4f3230476310f25c059d720665acabb1c7e29dfe5c941749c588528",
+      "territorio": "Aguascalientes",
+      "subchannel": "Farmacia",
+      "tamanio": "Mediano",
+      "razones": "Cliente inactivo",
+      "propuestas": "Estrategia de reactivación"
+    },
+    {
+      "customer_id": "df21dd4a6c444a7771d311274100add6ee42daf1e3adf8600867013e",
+      "territorio": "Aguascalientes",
+      "subchannel": "Verdulería",
+      "tamanio": "Pequeño",
+      "razones": "Cliente inactivo",
+      "propuestas": "Estrategia de reactivación"
+    },
+    {
+      "customer_id": "3669e0d81484bc2eae6ad7deb70f02f0b204d0d9cd9720ee6c9f3d3b",
+      "territorio": "Aguascalientes",
+      "subchannel": "Kiosco",
+      "tamanio": "Gigante",
+      "razones": "Cliente inactivo",
+      "propuestas": "Estrategia de reactivación"
+    },
+    {
+      "customer_id": "a8d1a658a28ece586f715d0f0070edfaf37f1561161277632bf5a336",
+      "territorio": "Juarez",
+      "subchannel": "Hogares",
+      "tamanio": "Mediano",
+      "razones": "Cliente inactivo",
+      "propuestas": "Estrategia de reactivación"
+    }
+  ],
+  "razones_frecuentes_alto_riesgo": [
+    {
+      "razon": "Cliente",
+      "frecuencia": 166
+    },
+    {
+      "razon": "pequeño",
+      "frecuencia": 132
+    },
+    {
+      "razon": "con",
+      "frecuencia": 132
+    },
+    {
+      "razon": "alta",
+      "frecuencia": 132
+    },
+    {
+      "razon": "probabilidad",
+      "frecuencia": 132
+    },
+    {
+      "razon": "de",
+      "frecuencia": 132
+    },
+    {
+      "razon": "abandono",
+      "frecuencia": 132
+    },
+    {
+      "razon": "|",
+      "frecuencia": 130
+    },
+    {
+      "razon": "en",
+      "frecuencia": 66
+    },
+    {
+      "razon": "meses",
+      "frecuencia": 66
+    }
+  ]
+}
