@@ -21,7 +21,7 @@ const mockClients = dashboardData.top_50_clientes_riesgo.map(c => ({
 // Basic Markdown parser for streaming AI analysis
 function renderMarkdown(text) {
   if (!text) return null
-  
+
   // Split by line
   const lines = text.split('\n')
   return lines.map((line, index) => {
@@ -53,11 +53,11 @@ function renderMarkdown(text) {
 
 function parseBold(text) {
   if (!text) return ""
-  
+
   // Parse **bold** and *italics*
   const regex = /(\*\*.*?\*\*|\*.*?\*)/g
   const parts = text.split(regex)
-  
+
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return <strong key={i}>{part.slice(2, -2)}</strong>
@@ -82,7 +82,7 @@ const formatMonthReadable = (mesStr) => {
 
 function ClientDetails() {
   const { clientId } = useParams()
-  
+
   const [client, setClient] = useState(null)
   const [clientLoading, setClientLoading] = useState(true)
   const [clientError, setClientError] = useState(null)
@@ -135,7 +135,7 @@ function ClientDetails() {
           throw new Error(`API error: ${response.status} ${response.statusText}`)
         }
         const data = await response.json()
-        
+
         const mappedClient = {
           cliente_id: data.client.customer_id,
           churn_score: data.client.prob_churn,
@@ -163,7 +163,7 @@ function ClientDetails() {
         const localClient = mockClients.find((c) => c.cliente_id === clientId)
         if (localClient) {
           setClient(localClient)
-          
+
           // Generate history from mock trend
           const historyKey = localClient.cliente_id.length > 12 ? localClient.cliente_id.substring(0, 12) + "..." : localClient.cliente_id
           const realHistory = dashboardData.historiales_top20_riesgo[historyKey]
@@ -308,29 +308,29 @@ function ClientDetails() {
 
   const riskFactors = client.razones
     ? client.razones.split('|').map((reason) => {
-        const trimmed = reason.trim()
-        let status = 'stable'
-        const lower = trimmed.toLowerCase()
-        if (lower.includes('caída') || lower.includes('perdió') || lower.includes('riesgo') || lower.includes('abandono') || lower.includes('disminuy')) {
-          status = 'negative'
-        } else if (lower.includes('nuevo') || lower.includes('no consolidado')) {
-          status = 'warning'
-        }
-        return { label: trimmed, change: '', status }
-      })
+      const trimmed = reason.trim()
+      let status = 'stable'
+      const lower = trimmed.toLowerCase()
+      if (lower.includes('caída') || lower.includes('perdió') || lower.includes('riesgo') || lower.includes('abandono') || lower.includes('disminuy')) {
+        status = 'negative'
+      } else if (lower.includes('nuevo') || lower.includes('no consolidado')) {
+        status = 'warning'
+      }
+      return { label: trimmed, change: '', status }
+    })
     : [
-        { label: 'Frecuencia de compra', change: '-32% en los últimos 30 días', status: riskPercent >= 50 ? 'negative' : 'stable' },
-        { label: 'Volumen medio de pedido', change: '-15% esta semana', status: riskPercent >= 75 ? 'negative' : 'stable' },
-        { label: 'Visitas del asesor comercial', change: 'Sin contacto presencial por 45 días', status: 'warning' },
-      ]
+      { label: 'Frecuencia de compra', change: '-32% en los últimos 30 días', status: riskPercent >= 50 ? 'negative' : 'stable' },
+      { label: 'Volumen medio de pedido', change: '-15% esta semana', status: riskPercent >= 75 ? 'negative' : 'stable' },
+      { label: 'Visitas del asesor comercial', change: 'Sin contacto presencial por 45 días', status: 'warning' },
+    ]
 
   const recommendations = client.propuestas
     ? client.propuestas.split('|').map(p => p.trim())
     : [
-        'Programar llamada inmediata del asesor comercial para evaluar la satisfacción de la tienda.',
-        'Ofrecer un cupón de descuento especial del 15% en el próximo pedido de abasto.',
-        'Presentar promociones personalizadas basadas en su subcanal comercial.'
-      ]
+      'Programar llamada inmediata del asesor comercial para evaluar la satisfacción de la tienda.',
+      'Ofrecer un cupón de descuento especial del 15% en el próximo pedido de abasto.',
+      'Presentar promociones personalizadas basadas en su subcanal comercial.'
+    ]
 
   // Circular gauge config
   const radius = 55
@@ -342,8 +342,8 @@ function ClientDetails() {
   // Dynamic calculations for ML metrics and context
   const activeHistory = historyData.filter(h => (h.uni_boxes_sold_m || 0) > 0)
 
-  const latestPeriod = activeHistory.length > 0 
-    ? formatMonthReadable(activeHistory[activeHistory.length - 1].mes) 
+  const latestPeriod = activeHistory.length > 0
+    ? formatMonthReadable(activeHistory[activeHistory.length - 1].mes)
     : (historyData.length > 0 ? formatMonthReadable(historyData[historyData.length - 1].mes) : 'N/A')
 
   const maxBoxes = historyData.length > 0 ? Math.max(...historyData.map(h => h.uni_boxes_sold_m || 0)) : 0
@@ -366,8 +366,8 @@ function ClientDetails() {
   const lastNormalPeriod = [...historyData]
     .reverse()
     .find(h => h.prob_churn < 0.50)?.mes
-  const lastNormalPeriodStr = lastNormalPeriod 
-    ? formatMonthReadable(lastNormalPeriod) 
+  const lastNormalPeriodStr = lastNormalPeriod
+    ? formatMonthReadable(lastNormalPeriod)
     : 'No registrado'
 
   let shownSalesEvidence = false
@@ -407,8 +407,8 @@ function ClientDetails() {
       emoji = '⚠️'
       shownRiskEvidence = true
       label = 'Sin actividad prolongada'
-      const periodText = lastNormalPeriodStr === 'No registrado' 
-        ? 'Sin período normal registrado' 
+      const periodText = lastNormalPeriodStr === 'No registrado'
+        ? 'Sin período normal registrado'
         : `Último período normal: ${lastNormalPeriodStr}`
       evidence = (
         <div className="factor-evidence">
@@ -433,11 +433,11 @@ function ClientDetails() {
 
       {/* Top Row: Store Profile, ML Factors, and Recommendations side-by-side */}
       <div className="details-top-grid">
-        
+
         {/* Profile Card */}
         <div className="details-card-panel client-profile-card">
           <h2>{riskPercent >= 75 ? 'Cliente en Riesgo Crítico' : riskPercent >= 50 ? 'Cliente en Riesgo Moderado' : 'Cliente con Riesgo Bajo'}</h2>
-          
+
           {/* Circular Risk Gauge */}
           <div className="gauge-wrapper">
             <div className="risk-gauge-container">
@@ -550,8 +550,8 @@ function ClientDetails() {
           </div>
 
           <div className="retention-call-container">
-            <button 
-              type="button" 
+            <button
+              type="button"
               className={`call-retention-btn ${calling ? 'loading' : ''}`}
               onClick={handleStartCall}
               disabled={calling}
@@ -571,25 +571,25 @@ function ClientDetails() {
 
       {/* Bottom Row: Gemini Analysis & Live Chat side-by-side */}
       <div className="details-bottom-grid">
-        
+
         {/* IA Analysis Box */}
         <div className="details-card-panel gemini-analysis-box">
           <div className="gemini-box-header">
             <span className="gemini-sparkle-icon">✨</span>
             <h3>Análisis Inteligente por IA</h3>
           </div>
-          
+
           {analysisLoading && !analysisText && (
             <div className="gemini-loading">
               <div className="spinner"></div>
               <span>Consultando Gemini, ejecutando razonamiento (Thinking) y buscando competencia en Google Search (Grounding)...</span>
             </div>
           )}
-          
+
           {analysisError && (
             <div className="gemini-error">⚠️ {analysisError}</div>
           )}
-          
+
           {analysisText && (
             <div className="gemini-analysis-content" style={{ padding: '4px 0' }}>
               <div className="analysis-text-markdown">
@@ -600,8 +600,8 @@ function ClientDetails() {
 
           {!analysisText && !analysisLoading && (
             <div className="gemini-trigger-container">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="gemini-trigger-btn"
                 onClick={fetchAnalysis}
               >
@@ -621,12 +621,12 @@ function ClientDetails() {
             <h3>Consultas de Seguimiento en Vivo</h3>
           </div>
           <p className="chat-intro">Pregúntale a Gemini ideas de negociación, competidores regionales o estrategias de retención específicas para esta tienda.</p>
-          
+
           <div className="chat-messages-list">
             {chatHistory.length === 0 && !chatStreamingText && (
               <div className="chat-empty-state-container">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="chat-starter-btn-large"
                   onClick={() => handleStarterClick("¿Qué más puedo saber?")}
                 >

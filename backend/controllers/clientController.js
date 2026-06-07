@@ -5,7 +5,7 @@ export async function getClientById(req, res) {
   try {
     const { id } = req.params;
     const db = mongoose.connection.db;
-    
+
     let history = [];
 
     // If it is a valid ObjectId, search by _id first to get customer_id
@@ -49,7 +49,7 @@ export const searchClients = async (req, res) => {
 
     // Build query object
     const query = {};
-
+    query.calmonth = 202401; //Get only last entry 
     // 1. Search term on customer_id
     if (q && q.trim() !== '') {
       query.customer_id = { $regex: q.trim(), $options: 'i' };
@@ -82,10 +82,22 @@ export const searchClients = async (req, res) => {
     }
 
     // Fetch matching clients with pagination and get total count
-    const [clients, total] = await Promise.all([
-      Client.find(query).skip(skip).limit(limit).lean(),
-      Client.countDocuments(query)
+    const [clients, totalResult] = await Promise.all([
+      Client.aggregate([
+        { $match: query },
+        { $group: { _id: "$customer_id", doc: { $first: "$$ROOT" } } },
+        { $replaceRoot: { newRoot: "$doc" } },
+        { $skip: skip },
+        { $limit: limit }
+      ]),
+      Client.aggregate([
+        { $match: query },
+        { $group: { _id: "$customer_id" } },
+        { $count: "total" }
+      ])
     ]);
+
+    const total = totalResult[0]?.total || 0;
 
     // Map properties from DB schema to frontend expected fields
     const mappedClients = clients.map(client => ({

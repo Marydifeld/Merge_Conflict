@@ -6,7 +6,7 @@ const ClientSchema = new mongoose.Schema({
         required: true,
     },
     calmonth: {
-        type: String,
+        type: Number,
         required: true,
     },
     num_transacciones: {
