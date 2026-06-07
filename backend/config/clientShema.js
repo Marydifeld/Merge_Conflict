@@ -13,6 +13,10 @@ const ClientSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    uni_boxes_sold_m: {
+        type: Number,
+        required: true,
+    },
     target: {
         type: Number,
         required: true,

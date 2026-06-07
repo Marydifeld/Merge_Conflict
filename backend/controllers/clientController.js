@@ -4,21 +4,34 @@ import mongoose from 'mongoose';
 export async function getClientById(req, res) {
   try {
     const { id } = req.params;
-    let client = null;
+    const db = mongoose.connection.db;
+    
+    let history = [];
 
+    // If it is a valid ObjectId, search by _id first to get customer_id
     if (mongoose.Types.ObjectId.isValid(id)) {
-      client = await Client.findById(id);
+      const byId = await db.collection("clients").findOne({ _id: new mongoose.Types.ObjectId(id) });
+      if (byId && byId.customer_id) {
+        history = await db.collection("clients").find({ customer_id: byId.customer_id }).sort({ calmonth: 1 }).toArray();
+      }
     }
 
-    if (!client) {
-      client = await Client.findOne({ customer_id: id });
+    // If not found or not ObjectId, search by customer_id directly
+    if (history.length === 0) {
+      history = await db.collection("clients").find({ customer_id: id }).sort({ calmonth: 1 }).toArray();
     }
 
-    if (!client) {
+    if (history.length === 0) {
       return res.status(404).json({ error: "Client not found" });
     }
 
-    return res.status(200).json(client);
+    // The latest record is the last one in the history array (since history is sorted by calmonth ascending)
+    const latestClient = history[history.length - 1];
+
+    return res.status(200).json({
+      client: latestClient,
+      history: history
+    });
   } catch (error) {
     console.error("Error in getClientById controller:", error);
     return res.status(500).json({ error: "Internal server error" });

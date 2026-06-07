@@ -72,8 +72,10 @@ function parseBold(text) {
 function ClientDetails() {
   const { clientId } = useParams()
   
-  // Find client matching parameter
-  const client = mockClients.find((c) => c.cliente_id === clientId)
+  const [client, setClient] = useState(null)
+  const [clientLoading, setClientLoading] = useState(true)
+  const [clientError, setClientError] = useState(null)
+  const [historyData, setHistoryData] = useState([])
 
   // IA analysis state
   const [analysisText, setAnalysisText] = useState('')
@@ -86,6 +88,72 @@ function ClientDetails() {
   const [chatStreamingText, setChatStreamingText] = useState('')
   const [chatLoading, setChatLoading] = useState(false)
   const chatEndRef = useRef(null)
+
+  // Fetch client details and trend history from the backend API
+  useEffect(() => {
+    const fetchClientData = async () => {
+      setClientLoading(true)
+      setClientError(null)
+      try {
+        const response = await fetch(`http://localhost:3001/api/clients/${clientId}`)
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status} ${response.statusText}`)
+        }
+        const data = await response.json()
+        
+        const mappedClient = {
+          cliente_id: data.client.customer_id,
+          churn_score: data.client.prob_churn,
+          territorio: data.client.territory_d || data.client.territorio || '',
+          subchannel: data.client.comercial_subchannel_d || data.client.subchannel || '',
+          tamano: data.client.rtm_customer_size_d || data.client.tamanio || data.client.tamano || '',
+          razones: data.client.razones || '',
+          propuestas: data.client.propuestas || '',
+          nivel_riesgo: data.client.nivel_riesgo || '',
+          num_coolers: data.client.num_coolers,
+          num_doors: data.client.num_doors
+        }
+
+        const mappedHistory = data.history.map(h => ({
+          mes: String(h.calmonth).replace(/^(\d{4})(\d{2})$/, '$1-$2'),
+          num_transacciones: h.num_transacciones,
+          uni_boxes_sold_m: h.uni_boxes_sold_m,
+          prob_churn: h.prob_churn
+        }))
+
+        setClient(mappedClient)
+        setHistoryData(mappedHistory)
+      } catch (err) {
+        console.warn("Backend API request for client details failed, falling back to local static JSON database:", err.message)
+        const localClient = mockClients.find((c) => c.cliente_id === clientId)
+        if (localClient) {
+          setClient(localClient)
+          
+          // Generate history from mock trend
+          const historyKey = localClient.cliente_id.length > 12 ? localClient.cliente_id.substring(0, 12) + "..." : localClient.cliente_id
+          const realHistory = dashboardData.historiales_top20_riesgo[historyKey]
+          const mockTrend = realHistory ? realHistory.map(h => ({
+            mes: h.mes,
+            num_transacciones: h.transacciones,
+            uni_boxes_sold_m: h.cajas,
+            prob_churn: localClient.churn_score
+          })) : [
+            { mes: '2025-10', num_transacciones: 52, uni_boxes_sold_m: 110, prob_churn: localClient.churn_score * 0.9 },
+            { mes: '2025-11', num_transacciones: 48, uni_boxes_sold_m: 95, prob_churn: localClient.churn_score * 0.95 },
+            { mes: '2025-12', num_transacciones: 42, uni_boxes_sold_m: 80, prob_churn: localClient.churn_score * 0.98 },
+            { mes: '2026-01', num_transacciones: 34, uni_boxes_sold_m: 65, prob_churn: localClient.churn_score }
+          ]
+          setHistoryData(mockTrend)
+        } else {
+          setClientError(`El cliente con ID "${clientId}" no está registrado.`)
+        }
+      } finally {
+        setClientLoading(false)
+      }
+    }
+
+    fetchClientData()
+  }, [clientId])
 
   // Clear analysis and chat state when switching clients
   useEffect(() => {
@@ -100,21 +168,6 @@ function ClientDetails() {
     setAnalysisLoading(true)
     setAnalysisError(null)
     setAnalysisText('')
-
-    // Generate historical trend from real JSON database history if available
-    const historyKey = client.cliente_id.length > 12 ? client.cliente_id.substring(0, 12) + "..." : client.cliente_id
-    const realHistory = dashboardData.historiales_top20_riesgo[historyKey]
-    const historyData = realHistory ? realHistory.map(h => ({
-      mes: h.mes,
-      num_transacciones: h.transacciones,
-      uni_boxes_sold_m: h.cajas,
-      prob_churn: client.churn_score
-    })) : [
-      { mes: '2025-10', num_transacciones: 52, uni_boxes_sold_m: 110, prob_churn: client.churn_score * 0.9 },
-      { mes: '2025-11', num_transacciones: 48, uni_boxes_sold_m: 95, prob_churn: client.churn_score * 0.95 },
-      { mes: '2025-12', num_transacciones: 42, uni_boxes_sold_m: 80, prob_churn: client.churn_score * 0.98 },
-      { mes: '2026-01', num_transacciones: 34, uni_boxes_sold_m: 65, prob_churn: client.churn_score }
-    ]
 
     try {
       const stream = await generateClientAnalysis(client, historyData)
@@ -187,11 +240,20 @@ function ClientDetails() {
     }
   }
 
-  if (!client) {
+  if (clientLoading) {
+    return (
+      <div id="details-page" className="details-loading" style={{ textAlign: 'center', padding: '100px 0' }}>
+        <div className="spinner" style={{ margin: '0 auto 16px' }}></div>
+        <p style={{ color: '#666', fontSize: '16px' }}>Cargando detalles del cliente...</p>
+      </div>
+    )
+  }
+
+  if (clientError || !client) {
     return (
       <div id="details-page" className="details-error">
         <h1>Cliente no encontrado</h1>
-        <p>El cliente con ID "{clientId}" no está registrado.</p>
+        <p>{clientError || `El cliente con ID "${clientId}" no está registrado.`}</p>
         <Link to="/churn" className="back-link">← Volver a Churn</Link>
       </div>
     )
@@ -372,7 +434,7 @@ function ClientDetails() {
                 className="gemini-trigger-btn"
                 onClick={fetchAnalysis}
               >
-                Generar Análisis Inteligente ✨
+                Generar Análisis Inteligente
               </button>
               <p className="gemini-trigger-hint">
                 Haz clic para iniciar el análisis con Google Search (Grounding) y Razonamiento (Thinking)
