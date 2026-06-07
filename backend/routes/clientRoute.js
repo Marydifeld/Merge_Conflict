@@ -2,16 +2,13 @@ import express from 'express';
 import {
     getClientById,
     searchClients, 
-    getTopClients,
+    getClientFilters,
 } from '../controllers/clientController.js';
 
 const router = express.Router();
 
 router.get('/search', searchClients);
-router.get('/', getTopClients);
+router.get('/filters', getClientFilters);
 router.get('/:id', getClientById);
-
-
-
 
 export default router;

@@ -40,171 +40,71 @@ export async function getClientById(req, res) {
 
 export const searchClients = async (req, res) => {
   try {
-    const { q, territory, subchannel, size, risk } = req.query;
-    const db = mongoose.connection.db;
+    const { q, territorio, subchannel, tamano, risk } = req.query;
 
-    const matchStage = {};
+    // Pagination parameters
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 5;
+    const skip = (page - 1) * limit;
 
-    // 1. Client Search Term (case-insensitive regex prefix match)
+    // Build query object
+    const query = {};
+
+    // 1. Search term on customer_id
     if (q && q.trim() !== '') {
-      matchStage.customer_id = { $regex: "^" + q.trim(), $options: "i" };
+      query.customer_id = { $regex: q.trim(), $options: 'i' };
     }
 
     // 2. Territory filter
-    if (territory && territory.trim() !== '') {
-      matchStage.territory_d = territory.trim();
+    if (territorio && territorio.trim() !== '') {
+      query.territory_d = territorio.trim();
     }
 
     // 3. Subchannel filter
     if (subchannel && subchannel.trim() !== '') {
-      matchStage.comercial_subchannel_d = subchannel.trim();
+      query.comercial_subchannel_d = subchannel.trim();
     }
 
     // 4. Size filter
-    if (size && size.trim() !== '' && size !== 'All') {
-      matchStage.rtm_customer_size_d = size.trim();
+    if (tamano && tamano !== 'All' && tamano.trim() !== '') {
+      query.rtm_customer_size_d = tamano.trim();
     }
 
-    // 5. Risk level filter
-    if (risk && risk.trim() !== '' && risk !== 'All') {
+    // 5. Risk tier filter
+    if (risk && risk !== 'All' && risk.trim() !== '') {
       if (risk === 'High') {
-        matchStage.prob_churn = { $gte: 0.75 };
+        query.prob_churn = { $gte: 0.75 };
       } else if (risk === 'Medium') {
-        matchStage.prob_churn = { $gte: 0.50, $lt: 0.75 };
+        query.prob_churn = { $gte: 0.50, $lt: 0.75 };
       } else if (risk === 'Low') {
-        matchStage.prob_churn = { $lt: 0.50 };
+        query.prob_churn = { $lt: 0.50 };
       }
     }
 
-    // Check if we have any active filters. If not, return the default mixed list
-    const hasFilters = Object.keys(matchStage).length > 0;
-    
-    if (!hasFilters) {
-      const results = await db.collection("clients").aggregate([
-        { $sort: { customer_id: 1, calmonth: -1 } },
-        {
-          $group: {
-            _id: "$customer_id",
-            customer_id: { $first: "$customer_id" },
-            prob_churn: { $first: "$prob_churn" },
-            estado: { $first: "$estado" },
-            territory_d: { $first: "$territory_d" },
-            comercial_subchannel_d: { $first: "$comercial_subchannel_d" },
-            rtm_customer_size_d: { $first: "$rtm_customer_size_d" },
-            num_coolers: { $first: "$num_coolers" },
-            num_doors: { $first: "$num_doors" },
-            nivel_riesgo: { $first: "$nivel_riesgo" },
-            razones: { $first: "$razones" },
-            propuestas: { $first: "$propuestas" },
-            calmonth: { $first: "$calmonth" }
-          }
-        },
-        { $sort: { prob_churn: -1 } }
-      ]).toArray();
+    // Fetch matching clients with pagination and get total count
+    const [clients, total] = await Promise.all([
+      Client.find(query).skip(skip).limit(limit).lean(),
+      Client.countDocuments(query)
+    ]);
 
-      return res.status(200).json(results);
-    }
+    // Map properties from DB schema to frontend expected fields
+    const mappedClients = clients.map(client => ({
+      cliente_id: client.customer_id,
+      churn_score: client.prob_churn,
+      territorio: client.territory_d,
+      subchannel: client.comercial_subchannel_d,
+      tamano: client.rtm_customer_size_d,
+      razones: client.razones,
+      propuestas: client.propuestas,
+      nivel_riesgo: client.nivel_riesgo
+    }));
 
-    // Otherwise, perform filtered aggregation on the database
-    let results = [];
-    try {
-      if (q && q.trim() !== '') {
-        const searchStage = {
-          $search: {
-            index: "default",
-            wildcard: {
-              query: `${q.trim()}*`,
-              path: "customer_id",
-              allowAnalyzedField: true
-            }
-          }
-        };
-
-        // Combine Atlas Search with other filter matches
-        const additionalMatch = { ...matchStage };
-        delete additionalMatch.customer_id; // Handled by $search
-
-        const pipeline = [searchStage];
-        if (Object.keys(additionalMatch).length > 0) {
-          pipeline.push({ $match: additionalMatch });
-        }
-
-        pipeline.push(
-          { $sort: { customer_id: 1, calmonth: -1 } },
-          {
-            $group: {
-              _id: "$customer_id",
-              customer_id: { $first: "$customer_id" },
-              prob_churn: { $first: "$prob_churn" },
-              estado: { $first: "$estado" },
-              territory_d: { $first: "$territory_d" },
-              comercial_subchannel_d: { $first: "$comercial_subchannel_d" },
-              rtm_customer_size_d: { $first: "$rtm_customer_size_d" },
-              num_coolers: { $first: "$num_coolers" },
-              num_doors: { $first: "$num_doors" },
-              nivel_riesgo: { $first: "$nivel_riesgo" },
-              razones: { $first: "$razones" },
-              propuestas: { $first: "$propuestas" },
-              calmonth: { $first: "$calmonth" }
-            }
-          },
-          { $sort: { prob_churn: -1 } }
-        );
-
-        results = await db.collection("clients").aggregate(pipeline).toArray();
-      } else {
-        // Direct match pipeline when no search term is entered
-        results = await db.collection("clients").aggregate([
-          { $match: matchStage },
-          { $sort: { customer_id: 1, calmonth: -1 } },
-          {
-            $group: {
-              _id: "$customer_id",
-              customer_id: { $first: "$customer_id" },
-              prob_churn: { $first: "$prob_churn" },
-              estado: { $first: "$estado" },
-              territory_d: { $first: "$territory_d" },
-              comercial_subchannel_d: { $first: "$comercial_subchannel_d" },
-              rtm_customer_size_d: { $first: "$rtm_customer_size_d" },
-              num_coolers: { $first: "$num_coolers" },
-              num_doors: { $first: "$num_doors" },
-              nivel_riesgo: { $first: "$nivel_riesgo" },
-              razones: { $first: "$razones" },
-              propuestas: { $first: "$propuestas" },
-              calmonth: { $first: "$calmonth" }
-            }
-          },
-          { $sort: { prob_churn: -1 } }
-        ]).toArray();
-      }
-    } catch (searchError) {
-      console.warn("Search aggregation query failed, running standard regex match fallback:", searchError.message);
-      // Fallback regex match query
-      results = await db.collection("clients").aggregate([
-        { $match: matchStage },
-        { $sort: { customer_id: 1, calmonth: -1 } },
-        {
-          $group: {
-            _id: "$customer_id",
-            customer_id: { $first: "$customer_id" },
-            prob_churn: { $first: "$prob_churn" },
-            estado: { $first: "$estado" },
-            territory_d: { $first: "$territory_d" },
-            comercial_subchannel_d: { $first: "$comercial_subchannel_d" },
-            rtm_customer_size_d: { $first: "$rtm_customer_size_d" },
-            num_coolers: { $first: "$num_coolers" },
-            num_doors: { $first: "$num_doors" },
-            nivel_riesgo: { $first: "$nivel_riesgo" },
-            razones: { $first: "$razones" },
-            propuestas: { $first: "$propuestas" },
-            calmonth: { $first: "$calmonth" }
-          }
-        },
-        { $sort: { prob_churn: -1 } }
-      ]).toArray();
-    }
-
-    return res.status(200).json(results);
+    return res.status(200).json({
+      clients: mappedClients,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit) || 1
+    });
 
   } catch (error) {
     console.error("Error in searchClients controller:", error);
@@ -212,37 +112,22 @@ export const searchClients = async (req, res) => {
   }
 };
 
-export async function getTopClients(req, res) {
+export const getClientFilters = async (req, res) => {
   try {
-    const db = mongoose.connection.db;
-    
-    // Group all clients by customer_id, pick their latest month record, and sort by risk descending
-    const results = await db.collection("clients").aggregate([
-      { $sort: { customer_id: 1, calmonth: -1 } },
-      {
-        $group: {
-          _id: "$customer_id",
-          customer_id: { $first: "$customer_id" },
-          prob_churn: { $first: "$prob_churn" },
-          estado: { $first: "$estado" },
-          territory_d: { $first: "$territory_d" },
-          comercial_subchannel_d: { $first: "$comercial_subchannel_d" },
-          rtm_customer_size_d: { $first: "$rtm_customer_size_d" },
-          num_coolers: { $first: "$num_coolers" },
-          num_doors: { $first: "$num_doors" },
-          nivel_riesgo: { $first: "$nivel_riesgo" },
-          razones: { $first: "$razones" },
-          propuestas: { $first: "$propuestas" },
-          calmonth: { $first: "$calmonth" }
-        }
-      },
-      { $sort: { prob_churn: -1 } }
-    ]).toArray();
+    const [territorios, subchannels] = await Promise.all([
+      Client.distinct('territory_d'),
+      Client.distinct('comercial_subchannel_d')
+    ]);
 
-    return res.status(200).json(results);
+    const sortedTerritorios = territorios.filter(Boolean).sort();
+    const sortedSubchannels = subchannels.filter(Boolean).sort();
+
+    return res.status(200).json({
+      territorios: sortedTerritorios,
+      subchannels: sortedSubchannels
+    });
   } catch (error) {
-    console.error("Error in getTopClients controller:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    console.error("Error in getClientFilters controller:", error);
+    return res.status(500).json({ error: "Internal server error retrieving filters" });
   }
-}
-
+};
