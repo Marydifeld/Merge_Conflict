@@ -34,4 +34,5 @@ dist-ssr
 # Machine Learning / Python
 ml/__pycache__/
 ml/*.csv
+!ml/preds_submission.csv
 ml/*.pkl
