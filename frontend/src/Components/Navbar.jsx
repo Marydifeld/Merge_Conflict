@@ -8,7 +8,6 @@ function Navbar() {
         <div className="navbarButtons">
           <Link to="/mainPage">Main Page</Link>
           <Link to="/churn">Churn</Link>
-          <Link to="/solutions">Solutions</Link>
         </div>
       </nav>
     );
