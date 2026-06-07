@@ -6,7 +6,7 @@ import data from "../data/dashboard_data.json";
 import '../styles.css'
 
 const top3ClientesRiesgo = data.top_50_clientes_riesgo.slice(0, 3).map(item => ({
-  id: item.customer_id.slice(0, 18) + "...",
+  id: item.customer_id,
   riesgo: (item.prob_churn * 100).toFixed(2)
 }));
 
