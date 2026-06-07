@@ -956,6 +956,7 @@
   width: 100%;
   background-color: transparent;
   margin-bottom: 24px;
+  align-items: stretch;
 }
 
 @media (max-width: 1024px) {
@@ -999,6 +1000,17 @@
 
 .details-card-panel:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05) !important;
+}
+
+.client-profile-card, .ml-factors-card, .recommendations-panel {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.recommendations-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .details-card-panel h3 {
@@ -1295,6 +1307,128 @@
   text-align: center;
   font-weight: 500;
   opacity: 0.85;
+}
+
+/* ML Factors Metrics Row */
+.factors-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+  background-color: transparent;
+}
+
+.metric-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: transparent;
+}
+
+.metric-label {
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #666;
+  background-color: transparent;
+}
+
+.metric-value {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--black);
+  background-color: transparent;
+}
+
+.metric-value.drop {
+  color: var(--pink);
+}
+
+/* Recommendations Context & Call Button */
+.rec-context-info {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14.5px;
+  color: #666;
+  background-color: transparent;
+}
+
+.context-row {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+}
+
+.context-label {
+  font-weight: 500;
+  background-color: transparent;
+}
+
+.context-value {
+  font-weight: bold;
+  color: var(--black);
+  background-color: transparent;
+}
+
+.context-value.alert {
+  color: var(--pink);
+}
+
+.retention-call-container {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+  background-color: transparent;
+  width: 100%;
+}
+
+.call-retention-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14.5px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.call-retention-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+  background: linear-gradient(135deg, #34d399, #059669);
+}
+
+.call-retention-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.call-retention-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.call-status-msg {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #10b981;
+  font-weight: bold;
+  background-color: transparent;
 }
 
 
