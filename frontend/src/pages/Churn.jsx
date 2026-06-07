@@ -9,7 +9,7 @@ const mockClients = [
   { id: 4, name: 'Client D', risk: 38 },
 ]
 
-function Churn() {
+function churn() {
   return (
     <div id="churn-page">
       <div className="churn-header">
@@ -27,5 +27,4 @@ function Churn() {
     </div>
   )
 }
-
-export default Churn
+export default churn
