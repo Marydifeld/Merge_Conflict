@@ -9,6 +9,7 @@ export default function App() {
     <BrowserRouter>
     <Navbar />
     <Routes>
+      <Route path="/" element={<Inicio />} />
       <Route path="/churn" element={<Churn />} />
       <Route path="/mainPage" element={<Inicio />} />
       <Route path="/details/:clientId" element={<ClientDetails />} />
