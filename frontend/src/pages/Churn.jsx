@@ -2,19 +2,18 @@ import React, { useState } from 'react'
 import Searchbar from '../Components/Searchbar'
 import ClientCard from '../Components/ClientCard'
 import '../churn_styles.css'
+import dashboardData from '../data/dashboard_data.json'
 
-const mockClients = [
-  { cliente_id: 'Tienda_MX_9032', churn_score: 0.92, territorio: 'CDMX', subchannel: 'Tortillería', tamano: 'Mediano' },
-  { cliente_id: 'Abarrotes_JAL_8841', churn_score: 0.74, territorio: 'Jalisco', subchannel: 'Mayorista', tamano: 'Grande' },
-  { cliente_id: 'Kiosco_NLE_7720', churn_score: 0.58, territorio: 'Nuevo León', subchannel: 'Kiosco', tamano: 'Mini' },
-  { cliente_id: 'Hogar_CDMX_1109', churn_score: 0.32, territorio: 'CDMX', subchannel: 'Hogares', tamano: 'Mediano' },
-  { cliente_id: 'Tortilla_PUE_6542', churn_score: 0.88, territorio: 'Puebla', subchannel: 'Tortillería', tamano: 'Mediano' },
-  { cliente_id: 'Depot_JAL_5510', churn_score: 0.45, territorio: 'Jalisco', subchannel: 'Mayorista', tamano: 'Grande' },
-  { cliente_id: 'Tienda_NLE_4301', churn_score: 0.12, territorio: 'Nuevo León', subchannel: 'Kiosco', tamano: 'Mini' },
-  { cliente_id: 'Miscelanea_EDO_9981', churn_score: 0.79, territorio: 'Estado de México', subchannel: 'Kiosco', tamano: 'Mini' },
-  { cliente_id: 'Super_EDO_2210', churn_score: 0.61, territorio: 'Estado de México', subchannel: 'Mayorista', tamano: 'Grande' },
-  { cliente_id: 'Tortilla_JAL_0029', churn_score: 0.25, territorio: 'Jalisco', subchannel: 'Tortillería', tamano: 'Mediano' },
-]
+const mockClients = dashboardData.top_50_clientes_riesgo.map(c => ({
+  cliente_id: c.customer_id,
+  churn_score: c.prob_churn,
+  territorio: c.territorio,
+  subchannel: c.subchannel,
+  tamano: c.tamanio,
+  razones: c.razones,
+  propuestas: c.propuestas,
+  nivel_riesgo: c.nivel_riesgo
+}))
 
 function Churn() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -140,7 +139,7 @@ function Churn() {
           <div className="button-group-wrapper">
             <span className="group-label">Size</span>
             <div className="pill-group">
-              {['All', 'Mini', 'Mediano', 'Grande'].map((size) => (
+              {['All', 'Mini', 'Pequeño', 'Mediano', 'Grande'].map((size) => (
                 <button
                   key={size}
                   type="button"
