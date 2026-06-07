@@ -1,13 +1,10 @@
 import WarningSign from "../Images/WarningSign.png";
 import ClientWarning from "./ClientWarning";
+import ChurnPieChart from "./ChurnPieChart";
 
-const mockClients = [
-  { id: 1, name: 'Client A', risk: 90 },
-  { id: 2, name: 'Client B', risk: 72 },
-  { id: 3, name: 'Client C', risk: 55 }
-]
 
-function Warning(){
+
+function Warning({ mockClients,dataGraph }) {
     return(
         <div className="warningContant">
             <div className="warning">
@@ -27,8 +24,11 @@ function Warning(){
             </div>
 
             <div className="GraphContainer">
-                hola
-                </div>  
+                <div className="graphplaceholder WarningGraph" style={{ width: "600px" }}>
+                    <h3>Customer Status</h3>
+                <ChurnPieChart data={dataGraph} />
+                </div>
+            </div>
 
         </div>
     )

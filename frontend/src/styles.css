@@ -51,6 +51,11 @@ body{
     text-decoration: none;
 }
 
+
+
+
+
+
 .kpi{
     display: flex;
     justify-content: space-around;
@@ -91,17 +96,28 @@ body{
 .kpiContainer h2{
     text-align: center;
     background-color: transparent;
-    font-size: 30px;
+    font-size: 35px;
     color: var(--white);
     margin: 10px 5px;
     font-weight: bold;
 }
+
+
+
 
 .mainPage{
     text-align: center;
     font-size: 50px;
     color: var(--black);
 }
+
+
+
+
+
+
+
+
 
 .warning{
     display: flex;
@@ -157,6 +173,12 @@ body{
     align-items: center;
     padding:0px;
 }
+
+
+
+
+
+
 
 #main-page .client-list {
   display: flex;
@@ -222,11 +244,6 @@ body{
 
 
 
-
-
-
-
-
 .graphsSection{
     width: 73%;
     margin: 50px auto;
@@ -236,6 +253,7 @@ body{
     display: flex;
     gap: 15px;
     height: 70px;
+    margin-bottom: 0px;
 }
 
 .graphsFilters select{
@@ -246,8 +264,7 @@ body{
     background-color: var(--white);
     color: var(--pink);
     font-size: 16px;
-    margin-bottom: 20px;
-    width: 200px;
+    width: 293px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23e4234a' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5 8 12l6.5-6.5' stroke='%23e4234a' stroke-width='2' fill='none'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
@@ -263,16 +280,17 @@ body{
     display: flex;
     gap: 20px;
     width: 100%;
+    align-items: stretch;
+    margin-top: 20px;
 }
 
 .graphCard{
     flex: 1;
-
     background-color: var(--white);
     border: 4px solid var(--pink);
     border-radius: 10px;
-
     padding: 20px;
+    height: 80%;
 }
 
 .graphCard h3{
@@ -281,14 +299,25 @@ body{
 }
 
 .graphPlaceholder{
-    height: 300px;
-
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    border: 2px dashed var(--gray);
     border-radius: 10px;
+    flex-direction: column;
+}
 
-    color: var(--gray);
+.graphPlaceholder h3{
+    font-size: 24px;
+    margin-bottom: 0px;
+    background-color: transparent;
+}
+
+.WarningGraph h3{
+    font-size: 24px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    background-color: transparent;
 }
