@@ -11,10 +11,6 @@ function Churn() {
   const [selectedRiskTier, setSelectedRiskTier] = useState('All')
   const [currentPage, setCurrentPage] = useState(1)
 
-  const [clients, setClients] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-
   const itemsPerPage = 5
 
   // API states
@@ -296,4 +292,3 @@ function Churn() {
 }
 
 export default Churn
-
