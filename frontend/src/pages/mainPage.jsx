@@ -5,11 +5,11 @@ import Graph from "../Components/Graph";
 import data from "../data/dashboard_data.json";
 import '../styles.css'
 
-const mockClients=[
-    { id: 1, name: 'Client A', risk: 90 },
-    { id: 2, name: 'Client B', risk: 72 },
-    { id: 3, name: 'Client C', risk: 55 }
-];
+const top3ClientesRiesgo = data.top_50_clientes_riesgo.slice(0, 3).map(item => ({
+  id: item.customer_id.slice(0, 18) + "...",
+  riesgo: (item.prob_churn * 100).toFixed(2)
+}));
+
 const seriesGlobal = data.serie_tiempo_global.map(item => ({
   mes: item.mes,       
   transacciones: item.transacciones 
@@ -64,7 +64,7 @@ function Inicio() {
         <div id="main-page">
             <h1 className="mainPage">Inicio</h1>
             <Kpi data={kpiData} />
-            <Warning mockClients={mockClients} dataGraph={churnData} />
+            <Warning mockClients={top3ClientesRiesgo} dataGraph={churnData} />
             <Graph data1={seriesGlobal} data2={clientesActivos} data3={cajasMes} data4={top5Subchannels} />
         </div>
     );

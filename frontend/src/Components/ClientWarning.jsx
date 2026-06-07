@@ -2,8 +2,8 @@ function ClientWarning({ client }) {
   return (
     <div className="client-card">
       <div className="client-info">
-        <span className="client-name">{client.name}</span>
-        <span className="client-risk">Risk: {client.risk + '%'}</span>
+        <span className="client-name">{client.id}</span>
+        <span className="client-risk">Risk: {client.riesgo + '%'}</span>
       </div>
     </div>
   )
