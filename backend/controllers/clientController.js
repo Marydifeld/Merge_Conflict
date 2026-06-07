@@ -27,39 +27,94 @@ export async function getClientById(req, res) {
 
 export const searchClients = async (req, res) => {
   try {
-    const searchString = req.query.q; // e.g., /api/clients/search?q=Acme
+    const { q, territorio, subchannel, tamano, risk } = req.query;
 
-    if (!searchString || searchString.trim() === '') {
-      return res.status(200).json([]);
+    // Pagination parameters
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 5;
+    const skip = (page - 1) * limit;
+
+    // Build query object
+    const query = {};
+
+    // 1. Search term on customer_id
+    if (q && q.trim() !== '') {
+      query.customer_id = { $regex: q.trim(), $options: 'i' };
     }
 
-    const db = mongoose.connection.db;
+    // 2. Territory filter
+    if (territorio && territorio.trim() !== '') {
+      query.territory_d = territorio.trim();
+    }
 
-    // 2. The Atlas Search Aggregation Pipeline
-    const results = await db.collection("clients").aggregate([
-      {
-        $search: {
-          index: "default", // The name of your Atlas Search index
-          text: {
-            query: searchString,
-            path: "customer_id",
-            fuzzy: {
-              maxEdits: 1 // Forgiving to typos (e.g., "Acm" -> "Acme")
-            }
-          }
-        }
-      },
-      {
-        $limit: 5 // Crucial for performance with 300k records
-      },
+    // 3. Subchannel filter
+    if (subchannel && subchannel.trim() !== '') {
+      query.comercial_subchannel_d = subchannel.trim();
+    }
 
-    ]).toArray();
+    // 4. Size filter
+    if (tamano && tamano !== 'All' && tamano.trim() !== '') {
+      query.rtm_customer_size_d = tamano.trim();
+    }
 
-    // 3. Send successful response
-    return res.status(200).json(results);
+    // 5. Risk tier filter
+    if (risk && risk !== 'All' && risk.trim() !== '') {
+      if (risk === 'High') {
+        query.prob_churn = { $gte: 0.75 };
+      } else if (risk === 'Medium') {
+        query.prob_churn = { $gte: 0.50, $lt: 0.75 };
+      } else if (risk === 'Low') {
+        query.prob_churn = { $lt: 0.50 };
+      }
+    }
+
+    // Fetch matching clients with pagination and get total count
+    const [clients, total] = await Promise.all([
+      Client.find(query).skip(skip).limit(limit).lean(),
+      Client.countDocuments(query)
+    ]);
+
+    // Map properties from DB schema to frontend expected fields
+    const mappedClients = clients.map(client => ({
+      cliente_id: client.customer_id,
+      churn_score: client.prob_churn,
+      territorio: client.territory_d,
+      subchannel: client.comercial_subchannel_d,
+      tamano: client.rtm_customer_size_d,
+      razones: client.razones,
+      propuestas: client.propuestas,
+      nivel_riesgo: client.nivel_riesgo
+    }));
+
+    return res.status(200).json({
+      clients: mappedClients,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit) || 1
+    });
 
   } catch (error) {
     console.error("Error in searchClients controller:", error);
     return res.status(500).json({ error: "Internal server error during search" });
+  }
+};
+
+export const getClientFilters = async (req, res) => {
+  try {
+    const [territorios, subchannels] = await Promise.all([
+      Client.distinct('territory_d'),
+      Client.distinct('comercial_subchannel_d')
+    ]);
+
+    const sortedTerritorios = territorios.filter(Boolean).sort();
+    const sortedSubchannels = subchannels.filter(Boolean).sort();
+
+    return res.status(200).json({
+      territorios: sortedTerritorios,
+      subchannels: sortedSubchannels
+    });
+  } catch (error) {
+    console.error("Error in getClientFilters controller:", error);
+    return res.status(500).json({ error: "Internal server error retrieving filters" });
   }
 };

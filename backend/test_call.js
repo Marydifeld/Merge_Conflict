@@ -17,7 +17,7 @@ async function testCall() {
     const status = response.status;
     const contentType = response.headers.get('content-type');
     let data;
-    
+
     if (contentType && contentType.includes('application/json')) {
       data = await response.json();
       console.log(`Response Status: ${status}`);
