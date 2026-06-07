@@ -58,6 +58,19 @@ const churnData = [
   }
 ];
 
+const territoriosPorNivel = {
+  alto: data.mapa_riesgo_territorio
+    .filter(t => t.nivel_riesgo_zona === "alto")
+    .map(t => t.territorio),
+  medio: data.mapa_riesgo_territorio
+    .filter(t => t.nivel_riesgo_zona === "medio")
+    .map(t => t.territorio),
+  bajo: data.mapa_riesgo_territorio
+    .filter(t => t.nivel_riesgo_zona === "bajo")
+    .map(t => t.territorio),
+};
+
+const serieSubchannel = data.serie_tiempo_subchannel;
 
 function Inicio() {
     return (
@@ -65,7 +78,8 @@ function Inicio() {
             <h1 className="mainPage">Inicio</h1>
             <Kpi data={kpiData} />
             <Warning mockClients={top3ClientesRiesgo} dataGraph={churnData} />
-            <Graph data1={seriesGlobal} data2={clientesActivos} data3={cajasMes} data4={top5Subchannels} />
+            <Graph data1={seriesGlobal} data2={clientesActivos} data3={cajasMes} data4={top5Subchannels} 
+  serieSubchannel={serieSubchannel} />
         </div>
     );
 }
