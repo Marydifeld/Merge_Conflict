@@ -69,6 +69,17 @@ function parseBold(text) {
   })
 }
 
+const formatMonthReadable = (mesStr) => {
+  if (!mesStr) return 'N/A'
+  const parts = mesStr.split('-')
+  if (parts.length !== 2) return mesStr
+  const months = {
+    '01': 'Ene', '02': 'Feb', '03': 'Mar', '04': 'Abr', '05': 'May', '06': 'Jun',
+    '07': 'Jul', '08': 'Ago', '09': 'Sep', '10': 'Oct', '11': 'Nov', '12': 'Dic'
+  }
+  return `${months[parts[1]] || parts[1]} ${parts[0]}`
+}
+
 function ClientDetails() {
   const { clientId } = useParams()
   
@@ -77,6 +88,30 @@ function ClientDetails() {
   const [clientError, setClientError] = useState(null)
   const [historyData, setHistoryData] = useState([])
 
+  const [calling, setCalling] = useState(false)
+  const [callStatus, setCallStatus] = useState('')
+
+  const handleStartCall = async () => {
+    setCalling(true)
+    setCallStatus('Iniciando llamada de retención...')
+    try {
+      const response = await fetch('http://localhost:3001/api/call/outbound-call', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      const data = await response.json()
+      if (data.success) {
+        setCallStatus('Llamada en curso 📞')
+      } else {
+        setCallStatus(`Error: ${data.error || 'No se pudo iniciar'}`)
+      }
+    } catch (err) {
+      setCallStatus('Error de conexión ⚠️')
+    } finally {
+      setCalling(false)
+      setTimeout(() => setCallStatus(''), 6000)
+    }
+  }
   // IA analysis state
   const [analysisText, setAnalysisText] = useState('')
   const [analysisLoading, setAnalysisLoading] = useState(false)
@@ -304,6 +339,91 @@ function ClientDetails() {
   const circumference = normalizedRadius * 2 * Math.PI
   const strokeDashoffset = circumference - (riskPercent / 100) * circumference
 
+  // Dynamic calculations for ML metrics and context
+  const activeHistory = historyData.filter(h => (h.uni_boxes_sold_m || 0) > 0)
+
+  const latestPeriod = activeHistory.length > 0 
+    ? formatMonthReadable(activeHistory[activeHistory.length - 1].mes) 
+    : (historyData.length > 0 ? formatMonthReadable(historyData[historyData.length - 1].mes) : 'N/A')
+
+  const maxBoxes = historyData.length > 0 ? Math.max(...historyData.map(h => h.uni_boxes_sold_m || 0)) : 0
+  const lastActiveBoxes = activeHistory.length > 0 ? activeHistory[activeHistory.length - 1].uni_boxes_sold_m || 0 : 0
+
+  const getCajasChange = () => {
+    if (maxBoxes === 0) return '0%'
+    const change = ((lastActiveBoxes - maxBoxes) / maxBoxes) * 100
+    const roundedChange = Math.round(change)
+    const finalChange = roundedChange === 0 ? 0 : roundedChange
+    const sign = finalChange > 0 ? '+' : ''
+    return `${sign}${finalChange}%`
+  }
+  const cajasChange = getCajasChange()
+
+  const coolers = client.num_coolers !== undefined ? client.num_coolers : 0
+
+  const monthsInRisk = historyData.filter(h => h.prob_churn >= 0.50).length
+
+  const lastNormalPeriod = [...historyData]
+    .reverse()
+    .find(h => h.prob_churn < 0.50)?.mes
+  const lastNormalPeriodStr = lastNormalPeriod 
+    ? formatMonthReadable(lastNormalPeriod) 
+    : 'No registrado'
+
+  let shownSalesEvidence = false
+  let shownCoolersEvidence = false
+  let shownRiskEvidence = false
+
+  const riskFactorsWithEvidence = riskFactors.map((factor) => {
+    let label = factor.label
+    const lower = label.toLowerCase()
+    let evidence = null
+    let emoji = '⚠️'
+
+    if ((lower.includes('caída') || lower.includes('caida') || lower.includes('disminuy') || lower.includes('compra') || lower.includes('volumen') || lower.includes('venta') || lower.includes('transacciones')) && !shownSalesEvidence) {
+      emoji = '📉'
+      shownSalesEvidence = true
+      evidence = (
+        <div className="factor-evidence" style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+          <span className="evidence-primary" style={{ fontSize: '15px', color: 'var(--black)', fontWeight: '500' }}>
+            De <strong style={{ fontSize: '16.5px', fontWeight: 'bold' }}>{Math.round(maxBoxes)}</strong> cajas → <strong style={{ fontSize: '16.5px', fontWeight: 'bold' }}>{Math.round(lastActiveBoxes)}</strong> cajas
+          </span>
+          <span className="evidence-secondary" style={{ fontSize: '12.5px', color: 'var(--pink)', fontWeight: 'bold' }}>
+            en su último pedido ({cajasChange})
+          </span>
+        </div>
+      )
+    } else if ((lower.includes('enfriador') || lower.includes('cooler')) && !shownCoolersEvidence) {
+      emoji = '🧊'
+      shownCoolersEvidence = true
+      evidence = (
+        <div className="factor-evidence">
+          <span className="evidence-primary" style={{ fontSize: '14.5px', color: '#555', fontWeight: '500' }}>
+            Enfriadores actuales: <strong style={{ fontSize: '15.5px', fontWeight: 'bold', color: 'var(--black)' }}>{coolers}</strong>
+          </span>
+        </div>
+      )
+    } else if ((lower.includes('pequeño') || lower.includes('pequeñ') || lower.includes('abandono') || lower.includes('riesgo') || lower.includes('tamaño') || lower.includes('tamanio') || lower.includes('nuevo') || lower.includes('consolidado')) && !shownRiskEvidence) {
+      emoji = '⚠️'
+      shownRiskEvidence = true
+      label = 'Sin actividad prolongada'
+      const periodText = lastNormalPeriodStr === 'No registrado' 
+        ? 'Sin período normal registrado' 
+        : `Último período normal: ${lastNormalPeriodStr}`
+      evidence = (
+        <div className="factor-evidence">
+          <span className="evidence-primary" style={{ fontSize: '14.5px', color: '#555', fontWeight: '500' }}>
+            <strong style={{ fontSize: '15.5px', fontWeight: 'bold', color: 'var(--black)' }}>{monthsInRisk}</strong> {monthsInRisk === 1 ? 'mes' : 'meses'} consecutivos en riesgo · {periodText}
+          </span>
+        </div>
+      )
+    }
+
+    return { ...factor, label, emoji, evidence }
+  })
+
+  const hasActiveAlerts = riskPercent < 50 && riskFactorsWithEvidence.some(f => f.evidence !== null)
+
   return (
     <div id="details-page">
       <div className="details-header">
@@ -316,7 +436,7 @@ function ClientDetails() {
         
         {/* Profile Card */}
         <div className="details-card-panel client-profile-card">
-          <h2>{client.cliente_id.length > 20 ? client.cliente_id.substring(0, 12) + '...' : client.cliente_id}</h2>
+          <h2>{riskPercent >= 75 ? 'Cliente en Riesgo Crítico' : riskPercent >= 50 ? 'Cliente en Riesgo Moderado' : 'Cliente con Riesgo Bajo'}</h2>
           
           {/* Circular Risk Gauge */}
           <div className="gauge-wrapper">
@@ -353,6 +473,12 @@ function ClientDetails() {
 
           <div className="client-info-table">
             <div className="info-row">
+              <span className="info-label">ID de Cliente</span>
+              <span className="info-value" title={client.cliente_id} style={{ cursor: 'help' }}>
+                {client.cliente_id.length > 15 ? client.cliente_id.substring(0, 8) + '...' : client.cliente_id}
+              </span>
+            </div>
+            <div className="info-row">
               <span className="info-label">Territorio</span>
               <span className="info-value">{client.territorio}</span>
             </div>
@@ -360,40 +486,85 @@ function ClientDetails() {
               <span className="info-label">Subcanal</span>
               <span className="info-value">{client.subchannel}</span>
             </div>
-             <div className="info-row">
+            <div className="info-row">
               <span className="info-label">Tamaño</span>
               <span className="info-value">{client.tamano}</span>
             </div>
-            {client.num_coolers !== undefined && client.num_coolers > 0 && (
-              <div className="info-row">
-                <span className="info-label">Enfriadores</span>
-                <span className="info-value">{client.num_coolers} ({client.num_doors || 0} ptas)</span>
-              </div>
-            )}
+            <div className="info-row">
+              <span className="info-label">Meses Registrados</span>
+              <span className="info-value">{historyData.length} meses</span>
+            </div>
           </div>
         </div>
 
         {/* ML Factors Card */}
         <div className="details-card-panel ml-factors-card">
-          <h3>Factores del Modelo ML</h3>
-          <div className="factors-list">
-            {riskFactors.map((factor, index) => (
-              <div key={index} className="factor-item">
-                <span className="factor-name">{factor.label}</span>
-                <span className={`factor-change ${factor.status}`}>{factor.change}</span>
+          <div>
+            <h3>Factores del Modelo ML</h3>
+            {hasActiveAlerts && (
+              <div className="alert-banner" style={{
+                backgroundColor: '#fff3cd',
+                color: '#856404',
+                border: '1.5px solid #ffeeba',
+                padding: '10px 14px',
+                borderRadius: '6px',
+                fontSize: '13px',
+                fontWeight: '500',
+                marginBottom: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                lineHeight: '1.4'
+              }}>
+                <span style={{ fontSize: '16px' }}>⚠️</span>
+                <span>El modelo detectó señales de alerta recientes no reflejadas en el score actual.</span>
               </div>
-            ))}
+            )}
+            <div className="factors-list">
+              {riskFactorsWithEvidence.map((factor, index) => (
+                <div key={index} className="factor-item" style={{ padding: '12px 0' }}>
+                  <div className="factor-header" style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                    <span className="factor-emoji" style={{ fontSize: '16px', marginTop: '1px' }}>{factor.emoji}</span>
+                    <span className="factor-name" style={{ fontSize: '14.5px', fontWeight: 'bold', color: 'var(--black)' }}>{factor.label}</span>
+                  </div>
+                  {factor.evidence && (
+                    <div className="factor-evidence-container" style={{ paddingLeft: '24px', marginTop: '6px' }}>
+                      {factor.evidence}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Static recommendations */}
         <div className="details-card-panel recommendations-panel">
-          <h3>Recomendaciones Preventivas</h3>
-          <ul className="rec-list">
-            {recommendations.map((rec, index) => (
-              <li key={index}>{rec}</li>
-            ))}
-          </ul>
+          <div>
+            <h3>Recomendaciones Preventivas</h3>
+            <ul className="rec-list">
+              {recommendations.map((rec, index) => (
+                <li key={index}>{rec}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="retention-call-container">
+            <button 
+              type="button" 
+              className={`call-retention-btn ${calling ? 'loading' : ''}`}
+              onClick={handleStartCall}
+              disabled={calling}
+            >
+              <span>📞</span>
+              {calling ? 'Iniciando...' : 'Iniciar llamada de retención'}
+            </button>
+            {callStatus && (
+              <p className="call-status-msg">
+                {callStatus}
+              </p>
+            )}
+          </div>
         </div>
 
       </div>
