@@ -1,19 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Searchbar from '../Components/Searchbar'
 import ClientCard from '../Components/ClientCard'
 import '../churn_styles.css'
-import dashboardData from '../data/dashboard_data.json'
-
-const mockClients = dashboardData.top_50_clientes_riesgo.map(c => ({
-  cliente_id: c.customer_id,
-  churn_score: c.prob_churn,
-  territorio: c.territorio,
-  subchannel: c.subchannel,
-  tamano: c.tamanio,
-  razones: c.razones,
-  propuestas: c.propuestas,
-  nivel_riesgo: c.nivel_riesgo
-}))
 
 function Churn() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -25,9 +13,83 @@ function Churn() {
 
   const itemsPerPage = 5
 
-  // Extract unique values dynamically for selects
-  const uniqueTerritorios = Array.from(new Set(mockClients.map(c => c.territorio))).sort()
-  const uniqueSubchannels = Array.from(new Set(mockClients.map(c => c.subchannel))).sort()
+  // API states
+  const [clients, setClients] = useState([])
+  const [totalClients, setTotalClients] = useState(0)
+  const [totalPages, setTotalPages] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [territorios, setTerritorios] = useState([])
+  const [subchannels, setSubchannels] = useState([])
+
+  // Search input debounce
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm)
+    }, 300)
+    return () => clearTimeout(handler)
+  }, [searchTerm])
+
+  // Fetch unique filter values on mount
+  useEffect(() => {
+    let active = true
+    async function fetchFilters() {
+      try {
+        const res = await fetch('/api/clients/filters')
+        if (!res.ok) throw new Error('Failed to fetch filters')
+        const data = await res.json()
+        if (active) {
+          setTerritorios(data.territorios || [])
+          setSubchannels(data.subchannels || [])
+        }
+      } catch (err) {
+        console.error('Error fetching filters:', err)
+      }
+    }
+    fetchFilters()
+    return () => {
+      active = false
+    }
+  }, [])
+
+  // Fetch paginated and filtered clients
+  useEffect(() => {
+    let active = true
+    async function fetchClients() {
+      setLoading(true)
+      setClients([])
+      try {
+        const queryParams = new URLSearchParams({
+          q: debouncedSearchTerm,
+          territorio: selectedTerritorio,
+          subchannel: selectedSubchannel,
+          tamano: selectedSize,
+          risk: selectedRiskTier,
+          page: currentPage,
+          limit: itemsPerPage,
+        })
+        const res = await fetch(`/api/clients/search?${queryParams.toString()}`)
+        if (!res.ok) throw new Error('Failed to fetch clients')
+        const data = await res.json()
+        if (active) {
+          setClients(data.clients || [])
+          setTotalClients(data.total || 0)
+          setTotalPages(data.totalPages || 1)
+        }
+      } catch (err) {
+        console.error('Error fetching clients:', err)
+      } finally {
+        if (active) {
+          setLoading(false)
+        }
+      }
+    }
+    fetchClients()
+    return () => {
+      active = false
+    }
+  }, [debouncedSearchTerm, selectedTerritorio, selectedSubchannel, selectedSize, selectedRiskTier, currentPage])
 
   // Helper functions to update filters and reset pagination page
   const handleSearchChange = (val) => {
@@ -60,40 +122,9 @@ function Churn() {
     setCurrentPage(1)
   }
 
-  const filteredClients = mockClients.filter((client) => {
-    // 1. Search term on cliente_id
-    const matchesSearch = client.cliente_id.toLowerCase().includes(searchTerm.toLowerCase())
-
-    // 2. Territory filter
-    const matchesTerritorio = !selectedTerritorio || client.territorio === selectedTerritorio
-
-    // 3. Subchannel filter
-    const matchesSubchannel = !selectedSubchannel || client.subchannel === selectedSubchannel
-
-    // 4. Size filter
-    const matchesSize = selectedSize === 'All' || client.tamano === selectedSize
-
-    // 5. Risk tier filter
-    const riskPercent = client.churn_score * 100
-    let matchesRisk = true
-    if (selectedRiskTier === 'High') {
-      matchesRisk = riskPercent >= 75
-    } else if (selectedRiskTier === 'Medium') {
-      matchesRisk = riskPercent >= 50 && riskPercent < 75
-    } else if (selectedRiskTier === 'Low') {
-      matchesRisk = riskPercent < 50
-    }
-
-    return matchesSearch && matchesTerritorio && matchesSubchannel && matchesSize && matchesRisk
-  })
-
-  // Pagination calculations
-  const totalClients = filteredClients.length
-  const totalPages = Math.ceil(totalClients / itemsPerPage) || 1
+  // Pagination calculations for showing count range
   const activePage = Math.min(currentPage, totalPages)
-
   const startIndex = (activePage - 1) * itemsPerPage
-  const paginatedClients = filteredClients.slice(startIndex, startIndex + itemsPerPage)
 
   return (
     <div id="churn-page">
@@ -114,7 +145,7 @@ function Churn() {
               onChange={(e) => handleTerritorioChange(e.target.value)}
             >
               <option value="">All Territories</option>
-              {uniqueTerritorios.map((t) => (
+              {territorios.map((t) => (
                 <option key={t} value={t}>{t}</option>
               ))}
             </select>
@@ -128,7 +159,7 @@ function Churn() {
               onChange={(e) => handleSubchannelChange(e.target.value)}
             >
               <option value="">All Subchannels</option>
-              {uniqueSubchannels.map((s) => (
+              {subchannels.map((s) => (
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>
@@ -182,12 +213,20 @@ function Churn() {
       </div>
 
       <div className="results-count">
-        Showing {startIndex + 1}–{Math.min(startIndex + itemsPerPage, totalClients)} of {totalClients} clients
+        {loading ? (
+          'Loading clients...'
+        ) : totalClients > 0 ? (
+          `Showing ${startIndex + 1}–${Math.min(startIndex + itemsPerPage, totalClients)} of ${totalClients} clients`
+        ) : (
+          'No clients found matching the selected filters.'
+        )}
       </div>
 
       <div className="client-list">
-        {paginatedClients.length > 0 ? (
-          paginatedClients.map((client) => (
+        {loading && clients.length === 0 ? (
+          <div className="loading-clients">Loading clients...</div>
+        ) : clients.length > 0 ? (
+          clients.map((client) => (
             <ClientCard key={client.cliente_id} client={client} />
           ))
         ) : (
@@ -204,7 +243,7 @@ function Churn() {
             <button
               type="button"
               className="pagination-btn"
-              disabled={activePage === 1}
+              disabled={activePage === 1 || loading}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               aria-label="Previous Page"
             >
@@ -226,7 +265,7 @@ function Churn() {
             <button
               type="button"
               className="pagination-btn"
-              disabled={activePage === totalPages}
+              disabled={activePage === totalPages || loading}
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
               aria-label="Next Page"
             >
